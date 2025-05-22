@@ -1,0 +1,27 @@
+.keywords div, .description div input{
+  height: 150px;
+  
+}
+
+.keywords div div input, .description div input, .game-name div input, .price div input, .platform div select{
+  border: none;
+  background-color: #9742ff;
+  color: white;
+}
+
+.keywords label , .description label , .game-name div input, .price div input, .platform div select{
+
+  color: white;
+}
+
+.keywords div div , .description div , .game-name div , .price div , .platform div {
+  color: white;
+  background-color: #9742ff32;
+  border-radius: 5px;
+  opacity: 0.3;
+}
+
+
+.keywords div{
+  margin-bottom: 70px;
+}

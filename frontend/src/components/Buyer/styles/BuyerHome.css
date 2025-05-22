@@ -1,0 +1,148 @@
+/* @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 1s ease-in-out;
+  }
+  
+  .delay-1 {
+    animation-delay: 0.5s;
+  }
+  
+  .delay-2 {
+    animation-delay: 1s;
+  }
+  
+  .buyer-home {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .jumbotron {
+    background-color: #f8f9fa;
+    border-radius: 15px;
+  }
+  
+  .card {
+    border-radius: 15px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .btn-outline-primary {
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+  }
+   */
+
+
+   /* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide-up animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 1s ease-in-out;
+}
+
+.delay-1 {
+  animation-delay: 0.5s;
+}
+
+.delay-2 {
+  animation-delay: 1s;
+}
+
+/* Transparent card with frosted-glass effect */
+.card {
+  background: rgba(255, 255, 255, 0.1); /* Transparent white */
+  backdrop-filter: blur(8px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease-in-out;
+  color: white;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Jumbotron transparent styling */
+.jumbotron {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Custom font */
+.buyer-home {
+  color: white;
+}
+
+/* Buttons with white border and transparent bg */
+.btn-outline-primary,
+.btn-primary {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover,
+.btn-primary:hover {
+  background-color: white;
+  color: black;
+}
+
+  

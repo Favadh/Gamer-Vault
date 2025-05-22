@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'Aquire';
+    src: url('./assets/fonts/Aquire-BW0ox.otf') format('opentype'); /* adjust path */
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+
+
+
+
+
+
+body {
+    background: url(/body-bg.jpg);
+    color: white;
+    font-family: 'Aquire', sans-serif !important;
+    margin: 0;
+    padding: 0;
+}
+*::-webkit-scrollbar{
+    display: none;
+}

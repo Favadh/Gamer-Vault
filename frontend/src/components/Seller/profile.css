@@ -1,0 +1,85 @@
+
+  
+  /* Optional: Adjust sidebar width if needed */
+.semi{
+    display: flex;
+}
+  
+  /* Let profile-wrapper grow */
+  .profile-wrapper {
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(157, 78, 221, 0.2);
+  }
+  
+  
+  .profile-section h5,
+  .account-info-section h5 {
+    color: #d2bfff;
+    margin-bottom: 4px;
+  }
+  
+  .profile-pic-container {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+  }
+  
+  .profile-pic {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #222;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #9d4edd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .camera-icon {
+    position: absolute;
+    bottom: 0;
+    background: #9d4edd;
+    color: white;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 3px 0;
+  }
+  
+  .account-info-section {
+    margin-top: 30px;
+  }
+  
+  .info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
+  
+  .info-grid input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #9d4edd50;
+    padding: 10px 14px;
+    border-radius: 10px;
+    color: white;
+    outline: none;
+    transition: border 0.3s ease;
+  }
+  
+  .info-grid input:focus {
+    border: 1px solid #9d4edd;
+  }
+  

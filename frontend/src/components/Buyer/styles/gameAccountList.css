@@ -1,0 +1,151 @@
+.game-account-card {
+    display: flex;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, border 0.2s;
+}
+
+.game-account-card:hover {
+    transform: scale(1.02);
+    border: 1px solid #7301ffba;
+}
+
+.cover-image {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.account-details {
+    padding: 20px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.account-username {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: white;
+}
+
+.account-price {
+    font-size: 18px;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.account-description {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 8px;
+}
+
+.arrow-wrapper {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+.arrow-icon {
+    width: 24px;
+    height: 24px;
+    fill: #00bfff;
+}
+
+.cart-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    color: #fff;
+    background-color: #0e0e2c;
+}
+
+.cart-items {
+    flex: 3;
+    margin-right: 2rem;
+}
+
+.cart-card {
+    display: flex;
+    background-color: #1a1a3b;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.cart-image {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.cart-info {
+    margin-left: 1.5rem;
+    flex: 1;
+}
+
+.remove-btn {
+    background-color: transparent;
+    border: 1px solid #ff3b3b;
+    color: #ff3b3b;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.cart-summary {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    background-color: #1a1a3b;
+    padding: 1rem;
+    border-radius: 10px;
+    min-width: 250px;
+}
+
+.checkout-btn {
+    width: 100%;
+    background: linear-gradient(90deg, #7f00ff, #e100ff);
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.cart-actions {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-outline.red {
+    border-color: #ff3b3b;
+    color: #ff3b3b;
+}
