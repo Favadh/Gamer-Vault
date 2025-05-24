@@ -8,6 +8,7 @@ import { Message } from '../model/Message.Model.js';
 import { v4 as uuidv4 } from "uuid"; 
 import Payment from '../model/payment.js';
 import Review from '../model/Review.js';
+import  initiatePaypal  from '../middleware/paypal.js';
 
 
 // Signup function
@@ -728,8 +729,34 @@ export const recordPayment = async (req, res) => {
   }
 };
 
+export const paypalPayment = async (req, res) => {
+  try {
+  console.log("Paypal payment initiated");
+  const url = await initiatePaypal();
+  res.redirect(url);
 
+  } catch (err) {
+    res.send('❌ Error initiating PayPal payment: ' + err.message);
+    console.error('❌ Error initiating PayPal payment:', err);
+  }
+};
 
+export const paypalPaymentSuccess = async (req, res) => {
+  try {
+  } catch (err) {
+    res.send('❌ Error handling PayPal payment success: ' + err.message);
+    console.error('❌ Error handling PayPal payment success:', err);
+  }
+};
+
+export const paypalPaymentCancel = async (req, res) => {
+  try {
+    res.redirect(`${GV_BASE_URL}/cart`)
+  } catch (err) {
+    res.send('❌ Error handling PayPal payment cancellation: ' + err.message);
+    console.error('❌ Error handling PayPal payment cancellation:', err);
+  }
+};
 
 export const GetBooking = async (req, res) => {
   try {
