@@ -59,7 +59,6 @@ const GameAccountDetail = () => {
 
         try {
             await axios.post(`http://localhost:8000/api/addtocart/${userId}`, { gameAccountId });
-            navigate('/cart')
             setSuccess("Item added to cart successfully!");
             setError('');
         } catch (err) {

@@ -592,7 +592,7 @@ export const BookAllGameAccounts = async (req, res) => {
       return res.status(404).json({ message: "No items in cart" });
     }
 
-    const gameAccountIds = [];
+    const gameAccountId = [];
     let totalPrice = 0;
     const gameDetails = []; // Array to store credentials
 
@@ -600,7 +600,7 @@ export const BookAllGameAccounts = async (req, res) => {
       const game = item.gameAccountId;
       if (!game || isNaN(game.price)) continue;
 
-      gameAccountIds.push(game._id);
+      gameAccountId.push(game._id);
       totalPrice += game.price;
 
       gameDetails.push({
@@ -609,10 +609,12 @@ export const BookAllGameAccounts = async (req, res) => {
       });
     }
 
+    
+
     // Create the booking
     const booking = await Booking.create({
       buyerId: userId,
-      gameAccountIds,
+      gameAccountId,
       totalPrice
     });
 
@@ -620,7 +622,7 @@ export const BookAllGameAccounts = async (req, res) => {
     await Cart.updateOne({ userId }, { $set: { items: [] } });
 
     // ❌ Removed deletion of game accounts after booking
-    // await GameAccount.deleteMany({ _id: { $in: gameAccountIds } });
+    // await GameAccount.deleteMany({ _id: { $in: gameAccountId } });
 
     res.status(200).json({
       message: "Booking created successfully",

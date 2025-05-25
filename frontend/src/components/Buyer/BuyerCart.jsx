@@ -346,15 +346,19 @@ const BuyerCart = () => {
         }
     };
 
-    const handleCheckout = async (gameAccountId) => {
+    const handleCheckout = async () => {
         const userId = localStorage.getItem('userid');
         try {
-            const res = await axios.post(`http://localhost:8000/api/book-product/${userId}/${gameAccountId}`);
+            const res = await axios.post(`http://localhost:8000/api//bookall/${userId}`);
+
+            console.log(res.data);
             
-            const { bookingId, totalPrice, status, paymentStatus } = res.data;
-        
-            // Save booking details to localStorage for use in payment page
-            localStorage.setItem('bookingId', bookingId);
+            
+            const { _id, totalPrice, status, paymentStatus } = res.data.booking;
+            console.log(_id, totalPrice, status, paymentStatus);
+            
+            // // Save booking details to localStorage for use in payment page
+            localStorage.setItem('bookingId',_id );
             localStorage.setItem('totalPrice', totalPrice);
             localStorage.setItem('status', status);
             localStorage.setItem('paymentStatus', paymentStatus);
@@ -369,7 +373,7 @@ const BuyerCart = () => {
     return (
         <div>
             <BuyerProdNav />
-            <h2 className="text-center mt-5">Your Shopping Cart</h2>
+            <h2 className="text-start cart-title">Your Shopping Cart</h2>
 
             {loading ? (
                 <p className="text-center">Loading cart...</p>
@@ -392,7 +396,7 @@ const BuyerCart = () => {
                                             <p>{account.description}</p>
                                             <button className="remove-btn" onClick={() => handleRemoveItem(account._id)}>Remove</button>
 
-                                            <button className="checkout-btn" onClick={() => handleCheckout(account._id) }>Checkout</button>
+                                            
                                             
                                         </div>
                                     </div>
@@ -417,9 +421,9 @@ const BuyerCart = () => {
                             </div>
 
                             <div className="cart-actions">
-                                <button className="btn-outline" onClick={() => navigate('/game')}>Continue Shopping</button>
+                                {/* <button className="btn-outline" onClick={() => navigate('/game')}>Continue Shopping</button> */}
 
-                                
+                                <button className="checkout-btn" onClick={() => handleCheckout() }>Checkout</button>
                             </div>
                         </div>
                     )}
