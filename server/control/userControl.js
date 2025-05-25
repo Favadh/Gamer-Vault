@@ -8,7 +8,7 @@ import { Message } from '../model/Message.Model.js';
 import { v4 as uuidv4 } from "uuid"; 
 import Payment from '../model/payment.js';
 import Review from '../model/Review.js';
-import  initiatePaypal  from '../middleware/paypal.js';
+import { initiatePaypal, capturePayment }  from '../middleware/paypal.js';
 
 
 // Signup function
@@ -733,7 +733,9 @@ export const paypalPayment = async (req, res) => {
   try {
   console.log("Paypal payment initiated");
   const url = await initiatePaypal();
+  console.log(url);
   res.redirect(url);
+  
 
   } catch (err) {
     res.send('❌ Error initiating PayPal payment: ' + err.message);
@@ -743,6 +745,9 @@ export const paypalPayment = async (req, res) => {
 
 export const paypalPaymentSuccess = async (req, res) => {
   try {
+    const response = await capturePayment(req.query.token);
+
+    res.json({msg:'Game account purchased successfully!', response,});
   } catch (err) {
     res.send('❌ Error handling PayPal payment success: ' + err.message);
     console.error('❌ Error handling PayPal payment success:', err);

@@ -10,10 +10,15 @@ const generateAccessToken = async () => {
       password: process.env.PAYPAL_CLIENT_SECRET,
     },
   });
+
+  if (respone.status !== 200) {
+    throw new Error("Failed to generate PayPal access token");
+  }
+
   return respone.data.access_token;
 }
 
-const initiatePaypal = async () => {
+export const initiatePaypal = async () => {
   const accessToken = await generateAccessToken();
 
   const respone = await axios({
@@ -60,7 +65,35 @@ const initiatePaypal = async () => {
       },
     }),
   });
+
+  if (respone.status !== 201) {
+    throw new Error("Failed to initiate PayPal payment");
+  }
+
   return respone.data.links.find(link => link.rel === "approve").href;
 }
 
-export default initiatePaypal;
+export const capturePayment = async (orderId) => {
+  const accessToken = await generateAccessToken();
+  console.log(`Capturing payment for order ID: ${orderId}`);
+  try{
+    
+  const response = await axios({
+    url: `${process.env.PAYPAL_BASE_URL}/v2/checkout/orders/${orderId}/capture`,
+    method: "post",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+  });
+  console.log(response.data);
+  return response.data;
+  } catch (error) { 
+    console.error("Error capturing payment:", error.response ? error.response.data : error.message);
+    throw new Error("Failed to capture PayPal payment");
+  }
+
+  
+  
+
+}
