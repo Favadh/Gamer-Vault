@@ -11,6 +11,10 @@ const BookingSchema = new mongoose.Schema({
     ref: 'User', 
     required: true 
   },
+  paypalToken: {
+    type: String,
+    required: true
+  },
   totalPrice: { 
     type: Number, 
     required: true 

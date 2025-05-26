@@ -57,7 +57,7 @@ export const initiatePaypal = async () => {
       ],
       application_context: {
         return_url: process.env.GV_FRONTEND_URL + "/payment-success", 
-        cancel_url: process.env.GV_FRONTEND_URL + "/cart", 
+        cancel_url: process.env.GV_FRONTEND_URL + "/payment-success",
         shipping_preference: "NO_SHIPPING", // Set to "NO_SHIPPING" if you don't need shipping.
         user_action: "PAY_NOW", // Set to "PAY_NOW" to show the Pay Now button
         brand_name: "GameVault", // Your brand name
@@ -86,7 +86,6 @@ export const capturePayment = async (orderId) => {
       "Content-Type": "application/json",
     },
   });
-  console.log(response.data);
   return response.data;
   } catch (error) { 
     console.error("Error capturing payment:", error.response ? error.response.data : error.message);

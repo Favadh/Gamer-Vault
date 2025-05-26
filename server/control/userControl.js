@@ -585,7 +585,7 @@ export const BookGameAccount = async (req, res) => {
 
 export const BookAllGameAccounts = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const { userId, token} = req.params;
 
     const cart = await Cart.findOne({ userId }).populate('items.gameAccountId');
     if (!cart || !cart.items || cart.items.length === 0) {
@@ -608,6 +608,7 @@ export const BookAllGameAccounts = async (req, res) => {
     // Create the booking
     const booking = await Booking.create({
       buyerId: userId,
+      paypalToken: token,
       gameAccountId,
       totalPrice
     });
@@ -739,10 +740,40 @@ export const paypalPayment = async (req, res) => {
 };
 
 export const paypalPaymentSuccess = async (req, res) => {
+  const {token} = req.query;
   try {
-    const response = await capturePayment(req.query.token);
+    const response = await capturePayment(token);
 
-    res.json({msg:'Game account purchased successfully!', response,});
+
+    // Find the booking by PayPal token
+    const booking = await Booking.findOne({ paypalToken: token });
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found for this PayPal token' });
+    }
+
+    // Update paymentStatus according to status, if failed the paypal returns the status failed as issue: "ORDER_NOT_APPROVED"
+    if(response.status) {
+      booking.paymentStatus = response.status === 'COMPLETED' 
+      ? 'completed': response.status === 'FAILED' 
+      ? 'cancelled' 
+      : 'pending';
+    } 
+    else if (response.details[0].issue === 'ORDER_NOT_APPROVED') {
+      booking.paymentStatus = 'cancelled';
+    }
+
+    booking.transactionId = response.id || token;
+    await booking.save();
+    
+    if(booking.paymentStatus === 'completed') {
+      booking.gameAccountId.map(async (gameAccount) => {
+        // Delete the game account after successful payment
+        await GameAccount.findByIdAndDelete(gameAccount);
+      });
+      await Cart.deleteOne({ userId: booking.buyerId });
+    }
+
+    res.json({msg:'Game account purchased successfully!', booking, response});
   } catch (err) {
     res.send('❌ Error handling PayPal payment success: ' + err.message);
     console.error('❌ Error handling PayPal payment success:', err);

@@ -34,7 +34,7 @@ router.get('/payment-success', paypalPaymentSuccess); // to handle the success r
 router.get('/payment-cancel', paypalPaymentCancel); // to handle the cancel response from PayPal.
 router.get('/totalprice/:userId', CalculateCartPrice)
 router.post('/book-product/:userId/:gameAccountId', BookGameAccount) // to book a single game account. specifically when the buyer clicks on the "buy" button.
-router.post('/bookall/:userId', BookAllGameAccounts) // to book all game accounts in the cart. specifically when the buyer clicks on the "checkout" button on cart page.
+router.post('/bookall/:userId/:token', BookAllGameAccounts) // to book all game accounts in the cart. specifically when the buyer clicks on the "checkout" button on cart page.
 // router.get('/orders/:buyerId', Vieworderstrans);
 // router.post('/message/:buyerId/:sellerId', sendingMessage)
 router.get('/sellers', viewSellers) // no purpose rn, but can be modified to view single seller by the buyer when browsing a product.

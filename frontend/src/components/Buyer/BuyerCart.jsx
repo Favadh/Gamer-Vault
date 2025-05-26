@@ -349,11 +349,15 @@ const BuyerCart = () => {
     const handleCheckout = async () => {
         const userId = localStorage.getItem('userid');
         try {
-            const res = await axios.post(`http://localhost:8000/api//bookall/${userId}`);
-
+            
             const paypalUrl = await axios.get('http://localhost:8000/api/paypal');
             console.log(paypalUrl.data);
-            
+
+            const urlObj = new URL(paypalUrl.data.url);
+            const token = urlObj.searchParams.get("token");
+
+            const res = await axios.post(`http://localhost:8000/api//bookall/${userId}/${token}`);
+
             if (!paypalUrl.data || !paypalUrl.data.url) {
                 alert("Failed to get payment URL");
                 return;
