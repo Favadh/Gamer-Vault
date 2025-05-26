@@ -11,36 +11,27 @@ const BookingSchema = new mongoose.Schema({
     ref: 'User', 
     required: true 
   },
-  bookingDate: {
-    type: Date,
-    default: Date.now
-  },
-  status: {
-    type: String,
-    enum: ["open", "sold", "reserved"],
-    default: "open"
-  },
-  paymentStatus: {
-    type: String,
-    enum: ['pending', 'paid'],
-    default: 'pending',
-  },  
+  totalPrice: { 
+    type: Number, 
+    required: true 
+  },  // Add totalPrice field
   transactionId: {
     type: String,
     required: function() { return this.paymentStatus === "completed"; }
   },
-  paymentRef: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Payment'
+  status: {
+    type: String,
+    default: function() { return this.paymentStatus;}
   },
-  lastUpdated: {
+  paymentStatus: {
+    type: String,
+    enum: ['pending', 'completed', 'cancelled'],
+    default: 'pending',
+  },  
+  bookingDate: {
     type: Date,
     default: Date.now
   },
-  totalPrice: { 
-    type: Number, 
-    required: true 
-  }  // Add totalPrice field
 });
 
 const Booking = mongoose.model('Booking', BookingSchema);

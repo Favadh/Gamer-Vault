@@ -80,7 +80,7 @@ const PaymentSuccess = () => {
       <div className="success-page">
         <h2>Oops!</h2>
         <p>Invalid access. No payment information found.</p>
-        <button className="payment-button" onClick={() => navigate("/")}>Go Home</button>
+        <button className="payment-button" onClick={() => navigate("/game")}>Go Home</button>
       </div>
     );
   }

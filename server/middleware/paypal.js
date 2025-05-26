@@ -56,11 +56,11 @@ export const initiatePaypal = async () => {
         },
       ],
       application_context: {
-        return_url: process.env.GV_BASE_URL + "/api/payment-success", // Replace with your actual return URL
-        cancel_url: process.env.GV_BASE_URL + "/api/payment-cancel", // Replace with your actual cancel URL
+        return_url: process.env.GV_FRONTEND_URL + "/payment-success", 
+        cancel_url: process.env.GV_FRONTEND_URL + "/cart", 
         shipping_preference: "NO_SHIPPING", // Set to "NO_SHIPPING" if you don't need shipping.
         user_action: "PAY_NOW", // Set to "PAY_NOW" to show the Pay Now button
-        brand_name: "GameVault", // Replace with your brand name
+        brand_name: "GameVault", // Your brand name
         // locale: "en-US", // Set the locale for the PayPal UI
       },
     }),

@@ -288,7 +288,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import './styles/gameAccountList.css';
 import BuyerProdNav from './BuyerProdNav';
 
@@ -351,19 +351,18 @@ const BuyerCart = () => {
         try {
             const res = await axios.post(`http://localhost:8000/api//bookall/${userId}`);
 
-            console.log(res.data);
+            const paypalUrl = await axios.get('http://localhost:8000/api/paypal');
+            console.log(paypalUrl.data);
             
+            if (!paypalUrl.data || !paypalUrl.data.url) {
+                alert("Failed to get payment URL");
+                return;
+            }
             
-            const { _id, totalPrice, status, paymentStatus } = res.data.booking;
-            console.log(_id, totalPrice, status, paymentStatus);
-            
-            // // Save booking details to localStorage for use in payment page
-            localStorage.setItem('bookingId',_id );
-            localStorage.setItem('totalPrice', totalPrice);
-            localStorage.setItem('status', status);
-            localStorage.setItem('paymentStatus', paymentStatus);
         
-            navigate('/payment');
+            // navigate('/payment');
+
+            window.location.href = paypalUrl.data.url; // Redirect browser to PayPal 
         } catch (error) {
             console.error("Booking error:", error.message);
             alert("Failed to book game account. Please try again.");

@@ -198,53 +198,53 @@ export const addGameAccount = async (req, res) => {
 };
 
 
-export const Vieworderstrans = async (req, res) => {
-  try {
-    const {buyerId} = buyerId;
-    const payments = await Payment.find({ paymentStatus: "success" })
-      .sort({ paidAt: -1 }) // newest first
-      .populate({
-        path: "buyerId",
-        model: "User",
-        select: "username email",
-      })
-      .populate({
-        path: "bookingId",
-        model: "Booking",
-        populate: {
-          path: "gameAccountId",
-          model: "GameAccount",
-          populate: {
-            path: "userId",
-            model: "User",
-            select: "username email",
-          },
-        },
-      });
+// export const Vieworderstrans = async (req, res) => {
+//   try {
+//     const {buyerId} = buyerId;
+//     const payments = await Payment.find({ paymentStatus: "success" })
+//       .sort({ paidAt: -1 }) // newest first
+//       .populate({
+//         path: "buyerId",
+//         model: "User",
+//         select: "username email",
+//       })
+//       .populate({
+//         path: "bookingId",
+//         model: "Booking",
+//         populate: {
+//           path: "gameAccountId",
+//           model: "GameAccount",
+//           populate: {
+//             path: "userId",
+//             model: "User",
+//             select: "username email",
+//           },
+//         },
+//       });
 
-    if (!payments || payments.length === 0) {
-      return res.status(404).json({ message: "No successful payments found." });
-    }
+//     if (!payments || payments.length === 0) {
+//       return res.status(404).json({ message: "No successful payments found." });
+//     }
 
-    const results = payments.map((payment) => ({
-      buyer: payment.buyerId,
-      transactionId: payment.transactionId,
-      paymentMode: payment.paymentMode,
-      paymentStatus: payment.paymentStatus,
-      totalPrice: payment.amount,
-      bookedAt: payment.paidAt,
-      gameAccount: payment.bookingId?.gameAccountId || null,
-    }));
+//     const results = payments.map((payment) => ({
+//       buyer: payment.buyerId,
+//       transactionId: payment.transactionId,
+//       paymentMode: payment.paymentMode,
+//       paymentStatus: payment.paymentStatus,
+//       totalPrice: payment.amount,
+//       bookedAt: payment.paidAt,
+//       gameAccount: payment.bookingId?.gameAccountId || null,
+//     }));
 
-    res.status(200).json({
-      allTransactions: results,
-      latestTransaction: results[0], // first one is latest due to sorting
-    });
-  } catch (error) {
-    console.error("Error fetching payments:", error);
-    res.status(500).json({ message: "Server error" });
-  }
-};
+//     res.status(200).json({
+//       allTransactions: results,
+//       latestTransaction: results[0], // first one is latest due to sorting
+//     });
+//   } catch (error) {
+//     console.error("Error fetching payments:", error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
 
 export const viewGameAccount = async (req, res) => {
   try {
@@ -594,7 +594,6 @@ export const BookAllGameAccounts = async (req, res) => {
 
     const gameAccountId = [];
     let totalPrice = 0;
-    const gameDetails = []; // Array to store credentials
 
     for (let item of cart.items) {
       const game = item.gameAccountId;
@@ -602,11 +601,6 @@ export const BookAllGameAccounts = async (req, res) => {
 
       gameAccountId.push(game._id);
       totalPrice += game.price;
-
-      gameDetails.push({
-        gameUsername: game.gameUsername,
-        gamePassword: game.gamePassword,
-      });
     }
 
     
@@ -619,7 +613,7 @@ export const BookAllGameAccounts = async (req, res) => {
     });
 
     // Clear the cart after booking
-    await Cart.updateOne({ userId }, { $set: { items: [] } });
+    // await Cart.updateOne({ userId }, { $set: { items: [] } });
 
     // ❌ Removed deletion of game accounts after booking
     // await GameAccount.deleteMany({ _id: { $in: gameAccountId } });
@@ -627,7 +621,6 @@ export const BookAllGameAccounts = async (req, res) => {
     res.status(200).json({
       message: "Booking created successfully",
       booking,
-      games: gameDetails // Send game credentials back to frontend
     });
 
   } catch (error) {
@@ -736,7 +729,7 @@ export const paypalPayment = async (req, res) => {
   console.log("Paypal payment initiated");
   const url = await initiatePaypal();
   console.log(url);
-  res.redirect(url);
+  res.json({url});
   
 
   } catch (err) {
@@ -758,7 +751,7 @@ export const paypalPaymentSuccess = async (req, res) => {
 
 export const paypalPaymentCancel = async (req, res) => {
   try {
-    res.redirect(`${GV_BASE_URL}/cart`)
+    res.status(404).json({msg: 'Payment cancelled!'})
   } catch (err) {
     res.send('❌ Error handling PayPal payment cancellation: ' + err.message);
     console.error('❌ Error handling PayPal payment cancellation:', err);
