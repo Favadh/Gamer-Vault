@@ -678,58 +678,11 @@ export const viewSellers = async(req, res) => {
   }
 }
 
-export const recordPayment = async (req, res) => {
+export const paypalPaymentInitialize = async (req, res) => {
+  const {totalPrice, gameDetails} = req.body;
+  
   try {
-    const { bookingId, transactionId } = req.body;
-
-    // Step 1: Find booking with GameAccount populated
-    const booking = await Booking.findById(bookingId).populate("gameAccountId");
-    if (!booking) {
-      return res.status(404).json({ message: "Booking not found" });
-    }
-
-    // Step 2: Get game account credentials (assuming only one game account for now)
-    const firstGameAccount = booking.gameAccountId[0];
-    if (!firstGameAccount) {
-      return res.status(400).json({ message: "No game account associated with booking" });
-    }
-
-    const { gameUsername, gamePassword } = firstGameAccount;
-
-    // Step 3: Update booking
-    booking.paymentStatus = "paid";
-    booking.transactionId = transactionId;
-    booking.lastUpdated = new Date();
-    booking.status = "sold";
-
-    // Optionally save credentials if you want them on the booking
-    booking.gameUsername = gameUsername;
-    booking.gamePassword = gamePassword;
-
-    await booking.save();
-
-    // Step 4: Delete game account(s)
-    await GameAccount.deleteMany({ _id: { $in: booking.gameAccountId } });
-
-    // Step 5: Respond
-    return res.status(200).json({
-      message: "Payment recorded and game account(s) deleted",
-      transactionId: booking.transactionId,
-      gameUsername,
-      gamePassword,
-    });
-
-  } catch (error) {
-    console.error("Payment error:", error);
-    return res.status(500).json({ message: "Internal server error" });
-  }
-};
-
-export const paypalPayment = async (req, res) => {
-  try {
-  console.log("Paypal payment initiated");
-  const url = await initiatePaypal();
-  console.log(url);
+  const url = await initiatePaypal(totalPrice, gameDetails);
   res.json({url});
   
 
@@ -739,11 +692,10 @@ export const paypalPayment = async (req, res) => {
   }
 };
 
-export const paypalPaymentSuccess = async (req, res) => {
+export const paypalPaymentVerification = async (req, res) => {
   const {token} = req.query;
   try {
     const response = await capturePayment(token);
-
 
     // Find the booking by PayPal token
     const booking = await Booking.findOne({ paypalToken: token });
@@ -773,19 +725,14 @@ export const paypalPaymentSuccess = async (req, res) => {
       await Cart.deleteOne({ userId: booking.buyerId });
     }
 
-    res.json({msg:'Game account purchased successfully!', booking, response});
-  } catch (err) {
-    res.send('❌ Error handling PayPal payment success: ' + err.message);
-    console.error('❌ Error handling PayPal payment success:', err);
-  }
-};
+    res.json({msg: booking.paymentStatus === 'completed' 
+      ? 'Game account purchased successfully!'
+      : booking.paymentStatus === 'cancelled' 
+      && 'Purchasing Game account failed', booking});
 
-export const paypalPaymentCancel = async (req, res) => {
-  try {
-    res.status(404).json({msg: 'Payment cancelled!'})
   } catch (err) {
-    res.send('❌ Error handling PayPal payment cancellation: ' + err.message);
-    console.error('❌ Error handling PayPal payment cancellation:', err);
+    res.send('❌ Error handling PayPal payment verification: ' + err.message);
+    console.error('❌ Error handling PayPal payment verification:', err);
   }
 };
 

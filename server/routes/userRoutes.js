@@ -1,6 +1,6 @@
 import express from 'express';
 import upload from '../middleware/upload.js'; 
-import {  addGameAccount, AddtoCart, BookAllGameAccounts, BookGameAccount, CalculateCartPrice,/*Vieworderstrans,*/ deleteGameAccount, getAllGameAccounts, GetBooking, loginUser, recordPayment, RemoveItemFromCart, signup, updateGameAccount, updateUser, viewAllUsers, ViewCartOfUser, viewGameAccount, viewGameAccountsByUser, viewSellers, viewUser, ViewHistoryTransactionOfUSer, sendReview, getReviews, DeleteUser, paypalPayment, paypalPaymentCancel, paypalPaymentSuccess } from '../control/userControl.js';
+import {  addGameAccount, AddtoCart, BookAllGameAccounts, BookGameAccount, CalculateCartPrice,/*Vieworderstrans,*/ deleteGameAccount, getAllGameAccounts, GetBooking, loginUser, RemoveItemFromCart, signup, updateGameAccount, updateUser, viewAllUsers, ViewCartOfUser, viewGameAccount, viewGameAccountsByUser, viewSellers, viewUser, ViewHistoryTransactionOfUSer, sendReview, getReviews, DeleteUser, paypalPaymentInitialize, paypalPaymentVerification } from '../control/userControl.js';
 
 
 const router = express.Router();
@@ -28,10 +28,8 @@ router.get('/get-booking/:id', GetBooking); // to get a single recent booking by
 router.post('/addtocart/:id', AddtoCart)
 router.get('/usercart/:userId', ViewCartOfUser)
 router.delete('/removecart/:userId/:gameAccountId', RemoveItemFromCart)
-router.post("/payment-success", recordPayment); // to record the payment, to provide the game credentials and to delete the displayed game details after successful payment.
-router.get('/paypal', paypalPayment); // to get the paypal payment link.
-router.get('/payment-success', paypalPaymentSuccess); // to handle the success response from PayPal.
-router.get('/payment-cancel', paypalPaymentCancel); // to handle the cancel response from PayPal.
+router.post('/paypal-initialize', paypalPaymentInitialize); // to get the paypal payment link.
+router.get('/payment-verification', paypalPaymentVerification); // to handle the success response from PayPal.
 router.get('/totalprice/:userId', CalculateCartPrice)
 router.post('/book-product/:userId/:gameAccountId', BookGameAccount) // to book a single game account. specifically when the buyer clicks on the "buy" button.
 router.post('/bookall/:userId/:token', BookAllGameAccounts) // to book all game accounts in the cart. specifically when the buyer clicks on the "checkout" button on cart page.

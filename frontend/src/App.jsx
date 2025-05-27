@@ -22,7 +22,7 @@ import PaymentForm from './components/Buyer/PaymentPage';
 import ViewOrders from './components/Seller/ViewOrders';
 import AdminHome from './components/Admin/AdminHome';
 import BuyerOrders from './components/Buyer/BuyerOrders';
-import PaymentSuccess from './components/Buyer/PaymentSuccess';
+import PaymentVerification from './components/Buyer/PaymentVerification';
 import SendReview from './components/Buyer/SendReview';
 import SellerSendReview from './components/Seller/SellerSendReview';
 import ViewUser from './components/Admin/ViewUser';
@@ -55,7 +55,7 @@ function App() {
         <Route path='/orders' element={ <ViewOrders /> } />
         <Route path='/admin' element={ <ViewUser /> } />
         <Route path='/history' element= { <BuyerOrders /> }/>
-        <Route path='/payment-success' element ={ <PaymentSuccess /> } />
+        <Route path='/payment-verification' element ={ <PaymentVerification /> } />
         <Route path='/review' element={ <SendReview /> }/>
         <Route path='/sellerreview' element={ <SellerSendReview /> }/>
         <Route path='/users' element={ <ViewUser /> }/>

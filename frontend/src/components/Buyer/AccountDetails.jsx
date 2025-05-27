@@ -43,9 +43,9 @@ const GameAccountDetail = () => {
         }
     }, [gameAccount]);
 
-    const handleBack = () => {
-        localStorage.removeItem('selectedGameAccountId');
-        navigate(-1);
+    const handleBuy = () => {
+        handleAddToCart();
+        navigate('/cart');
     };
 
     const handleAddToCart = async () => {
@@ -103,7 +103,7 @@ const GameAccountDetail = () => {
                             ))}
                         </div>
                         <div className="button-group">
-                            <button className="back" onClick={handleBack}>Back</button>
+                            <button className="buy" onClick={handleBuy}>Buy Now</button>
                             <button className="add" onClick={handleAddToCart}>Add to Cart</button>
                         </div>
                         {success && <p className="success-msg">{success}</p>}
