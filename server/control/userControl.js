@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import Payment from '../model/payment.js';
 import Review from '../model/Review.js';
 import { initiatePaypal, capturePayment }  from '../middleware/paypal.js';
+import nodemailer from 'nodemailer';
 
 
 // Signup function
@@ -717,6 +718,42 @@ export const paypalPaymentVerification = async (req, res) => {
     booking.transactionId = response.id || token;
     await booking.save();
     
+    // Email sendig :
+    const buyer = await User.findById(booking.buyerId);
+    if (buyer && booking.paymentStatus === 'completed') {
+      // Get all game accounts in the booking (could be array or single)
+      const gameAccounts = Array.isArray(booking.gameAccountId)
+        ? await GameAccount.find({ _id: { $in: booking.gameAccountId } })
+        : [await GameAccount.findById(booking.gameAccountId)];
+
+      // Prepare credentials message
+      const credentials = gameAccounts
+        .map(
+          (acc) =>
+            `${acc?.gameName}:\nUsername: ${acc?.gameUsername}\nPassword: ${acc?.gamePassword}\n`
+        )
+        .join('\n');
+
+      // Set up nodemailer transporter (example with Gmail, replace with your SMTP config)
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.EMAIL_USER, // your email
+          pass: process.env.EMAIL_PASS, // your email password or app password
+        },
+      });
+
+      // Send email
+      const emailVerification = await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: buyer.email,
+        subject: 'Your Game Account Credentials',
+        text: `Thank you for your purchase!\n\nHere are your game account credentials:\n\n${credentials}`,
+      });
+      console.log('Email sent:', emailVerification.response);
+      
+    }
+    
     if(booking.paymentStatus === 'completed') {
       booking.gameAccountId.map(async (gameAccount) => {
         // Delete the game account after successful payment
@@ -735,6 +772,57 @@ export const paypalPaymentVerification = async (req, res) => {
     console.error('❌ Error handling PayPal payment verification:', err);
   }
 };
+
+export const sendEmailAgain = async (req, res) => {
+  const { bookingId } = req.body;
+
+  try {
+    const booking = await Booking.findById(bookingId).populate('gameAccountId');
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    const buyer = await User.findById(booking.buyerId);
+    if (!buyer) {
+      return res.status(404).json({ message: 'Buyer not found' });
+    }
+
+    const gameAccounts = Array.isArray(booking.gameAccountId)
+        ? await GameAccount.find({ _id: { $in: booking.gameAccountId } })
+        : [await GameAccount.findById(booking.gameAccountId)];
+
+      // Prepare credentials message
+      const credentials = gameAccounts
+        .map(
+          (acc) =>
+            `${acc?.gameName}:\nUsername: ${acc?.gameUsername}\nPassword: ${acc?.gamePassword}\n`
+        )
+        .join('\n');
+
+      // Set up nodemailer transporter (example with Gmail, replace with your SMTP config)
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.EMAIL_USER, // your email
+          pass: process.env.EMAIL_PASS, // your email password or app password
+        },
+      });
+
+      // Send email
+      const emailVerification = await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: buyer.email,
+        subject: 'Your Game Account Credentials',
+        text: `Thank you for your purchase!\n\nHere are your game account credentials:\n\n${credentials}`,
+      });
+      console.log('Email sent:', emailVerification.response);
+      res.status(200).json({ message: 'Email sent successfully'});
+
+  } catch (error) {
+    console.error('Error sending email again:', error);
+    return res.status(500).json({ message: 'Failed to send email again' });
+  }
+}
 
 export const GetBooking = async (req, res) => {
   try {

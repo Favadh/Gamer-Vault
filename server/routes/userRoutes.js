@@ -1,6 +1,7 @@
 import express from 'express';
 import upload from '../middleware/upload.js'; 
-import {  addGameAccount, AddtoCart, BookAllGameAccounts, BookGameAccount, CalculateCartPrice,/*Vieworderstrans,*/ deleteGameAccount, getAllGameAccounts, GetBooking, loginUser, RemoveItemFromCart, signup, updateGameAccount, updateUser, viewAllUsers, ViewCartOfUser, viewGameAccount, viewGameAccountsByUser, viewSellers, viewUser, ViewHistoryTransactionOfUSer, sendReview, getReviews, DeleteUser, paypalPaymentInitialize, paypalPaymentVerification } from '../control/userControl.js';
+import {  addGameAccount, AddtoCart, BookAllGameAccounts, BookGameAccount, CalculateCartPrice,/*Vieworderstrans,*/ deleteGameAccount, getAllGameAccounts, GetBooking, loginUser, RemoveItemFromCart, signup, updateGameAccount, updateUser, viewAllUsers, ViewCartOfUser, viewGameAccount, viewGameAccountsByUser, viewSellers, viewUser, ViewHistoryTransactionOfUSer, sendReview, getReviews, DeleteUser, paypalPaymentInitialize, paypalPaymentVerification, sendEmailAgain } from '../control/userControl.js';
+import { send } from 'process';
 
 
 const router = express.Router();
@@ -30,6 +31,7 @@ router.get('/usercart/:userId', ViewCartOfUser)
 router.delete('/removecart/:userId/:gameAccountId', RemoveItemFromCart)
 router.post('/paypal-initialize', paypalPaymentInitialize); // to get the paypal payment link.
 router.get('/payment-verification', paypalPaymentVerification); // to handle the success response from PayPal.
+router.post('/send-email-again', sendEmailAgain); // to send email again when the buyer clicks on the "send email again" button in the payment verification page.
 router.get('/totalprice/:userId', CalculateCartPrice)
 router.post('/book-product/:userId/:gameAccountId', BookGameAccount) // to book a single game account. specifically when the buyer clicks on the "buy" button.
 router.post('/bookall/:userId/:token', BookAllGameAccounts) // to book all game accounts in the cart. specifically when the buyer clicks on the "checkout" button on cart page.
