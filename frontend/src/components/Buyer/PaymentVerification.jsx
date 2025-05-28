@@ -16,6 +16,7 @@ const PaymentVerification = () => {
   const handleSendEmail = (bookingId) => {
     try {
       const response = axios.post(`${import.meta.env.VITE_GV_BASE_URL}/api/send-email-again`, { bookingId });
+      console.log(response.data.message); // set a toast msg here
     } catch (error) {
       console.error("Error sending email:", error);
     }
@@ -85,9 +86,9 @@ const PaymentVerification = () => {
       <div className="info-box">
         <p className="secure-text">{message}</p>
       </div>
-      {status === 'completed' && (() => {
-        <button onClick={(() => handleSendEmail(bookingId) )}>Send email again</button>
-      })}
+      {status === "✅ Payment Successful!" && (
+        <button onClick={() => handleSendEmail(bookingId)}>Send email again</button>
+      )}
       <button onClick={() => navigate(navPath)}>{btnText}</button>
     </div>
   );

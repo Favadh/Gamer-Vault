@@ -10,6 +10,7 @@ import Payment from '../model/payment.js';
 import Review from '../model/Review.js';
 import { initiatePaypal, capturePayment }  from '../middleware/paypal.js';
 import nodemailer from 'nodemailer';
+import { encrypt, decrypt } from '../utils/crypto.js';
 
 
 // Signup function
@@ -183,8 +184,8 @@ export const addGameAccount = async (req, res) => {
       screenshots,
       userId,
       keywords,
-      gameUsername,
-      gamePassword,
+      gameUsername : encrypt(gameUsername),
+      gamePassword : encrypt(gamePassword),
       gameMode,
       platform
     });
@@ -730,7 +731,7 @@ export const paypalPaymentVerification = async (req, res) => {
       const credentials = gameAccounts
         .map(
           (acc) =>
-            `${acc?.gameName}:\nUsername: ${acc?.gameUsername}\nPassword: ${acc?.gamePassword}\n`
+            `${acc?.gameName}:\nUsername: ${decrypt(acc?.gameUsername)}\nPassword: ${decrypt(acc?.gamePassword)}\n`
         )
         .join('\n');
 
@@ -795,7 +796,7 @@ export const sendEmailAgain = async (req, res) => {
       const credentials = gameAccounts
         .map(
           (acc) =>
-            `${acc?.gameName}:\nUsername: ${acc?.gameUsername}\nPassword: ${acc?.gamePassword}\n`
+            `${acc?.gameName}:\nUsername: ${decrypt(acc?.gameUsername)}\nPassword: ${decrypt(acc?.gamePassword)}\n`
         )
         .join('\n');
 
