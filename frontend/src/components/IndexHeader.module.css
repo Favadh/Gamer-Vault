@@ -1,0 +1,148 @@
+/* Header Styles */
+
+/* External Navigation styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 11;
+  margin-top: 10px;
+  user-select: none;
+}
+
+.logo {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo a {
+    width: 100%;
+    height: 100%;
+}
+
+.navbar ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  margin: 0px;
+  padding: 0px;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar .ulScrolled {
+  gap: 50px;
+}
+
+.navbar ul li {
+  list-style: none;
+  padding: 3px 10px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.navActive h5 {
+  color: white !important;
+}
+
+.navbar ul li h5 {
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: rgb(255 255 255 / 60%);
+  transition-property: all;
+  transition-duration: 0.2s;
+  margin: 0px;
+  white-space: nowrap;
+}
+
+.navbar ul li:hover h5 {
+  color: white;
+}
+
+.gridRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.loginBtn{
+  color: #7301FF;
+  border: 1px solid #7301FF;
+  background-color: transparent;
+  border-radius: 16px;
+  padding: 5px 15px;
+  transition: all 0.1s ease-in-out;
+  white-space: nowrap;
+}
+
+.loginBtn:hover {
+  color: white;
+  background-color: #7301FF;
+}
+
+.loginBtn:active {
+  opacity: 0.6;
+}
+
+.signupBtn {
+  color: white;
+  background-color: #7301FF;
+  border-radius: 16px;
+  border: none ;
+  padding: 5px 15px;
+  transition: all 0.1s ease-in-out;
+  white-space: nowrap;
+}
+
+.signupBtn:hover {
+  opacity: 0.8;
+}
+
+.signupBtn:active {
+  opacity: 0.6;
+}
+
+@media (max-width: 1200px) {
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .navbar ul {
+    gap: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0px 12px !important;
+    height: 3rem;
+  }
+  .navbar ul li {
+    padding: 3px 6px;
+  }
+  .navbar ul li h5 {
+    font-size: 13px;
+  }
+  .loginBtn, .signupBtn{
+    padding: 4px 11px;
+    border-radius: 15px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 320px) { 
+  .loginBtn, .signupBtn{
+    padding: 3px 10px;
+    border-radius: 14px;
+    font-size: 10px;
+  }
+}

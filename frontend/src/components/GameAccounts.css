@@ -2,7 +2,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    height: 800px;
+    overflow: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    position: relative;
+    margin: 90px;
+    background-color: rgba(0, 0, 0, 0.175);
+    backdrop-filter: blur(10px);
+    border: 0.5px solid rgba(255, 255, 255, 0.060);
 }
 
 .game-cards {
@@ -11,15 +19,63 @@
     justify-content: center;
     gap: 20px;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 30px auto;
 }
+
+.scroll-down{
+    position: absolute;
+    z-index: 100;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    background: linear-gradient(900deg, #0000000c, #0000005c, #000000a9);
+    backdrop-filter: blur(3px);
+    transition: transform 0.4s cubic-bezier(.4,0,.2,1), opacity 0.25s cubic-bezier(.4,0,.2,1);
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-down.hide {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(100px);
+}
+
+.scroll-down.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.scroll-down div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.scroll-icon {
+    font-size: 2.3rem;
+    color: #7301FF;
+}
+
+.scroll-down p {
+    color: white;
+    margin-bottom: 0;
+    font-family: 'Oxanium', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+}
+
 
 .game-card {
     flex: 1 1 calc(25% - 20px); /* Ensures 4 cards per row */
     max-width: 280px;
-    background: linear-gradient(135deg, #2a0055, #3b006e); /* Dark purple gradient */
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(138, 43, 226, 0.5); /* Glowing effect */
+    background-color: #0C0C36;
+    border-radius: 9.5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /*Glowing effect */
     overflow: hidden;
     text-align: center;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -27,35 +83,79 @@
 
 .game-card:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(138, 43, 226, 0.7); /* Stronger glow on hover */
+    box-shadow: 0 3px 6px rgba(115, 1, 255, 0.7); 
 }
 
 .game-cover {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-bottom: 3px solid #6a0dad;
 }
 
 .game-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     padding: 15px;
-    color: white; /* White text for contrast */
+    background: radial-gradient(circle 125px at 50% 50%, rgba(151, 66, 255, 0.15), rgba(0, 0, 0, 0));
+}
+
+.game-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.game-details-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
 }
 
 .game-title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
-    color: #d4aaff; /* Light purple text */
+    margin: 0;
+    font-family: 'Oxanium', sans-serif;
+    color: #ffffff; /* Light purple text */
+    text-align: left;
+    text-overflow: ellipsis;
 }
 
 .game-description {
-    color: #ccc; /* Light gray for readability */
-    margin: 10px 0;
+    color: #c2c2c2; /* Light gray for readability */
+    margin: 0;
 }
 .game-price {
-    font-size: 1.2rem;
+    font-size: 0.95rem;
     font-weight: bold;
-    color: #d4aaff;
+    margin: 0;
+    color: #09ff36;
+}
+
+.cart-btn{
+    color: white;
+    background-color: #7301FF;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: none;
+    font-family: 'Oxanium', sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.cart-btn:hover {
+    background-color: #7301ffbf;
+}
+
+.sellerPhoto{
+    height: 40px;
+    border-radius: 50px;
+}
+
+.sellerName{
+    font-size: 12px;
+    letter-spacing: 0.2px;
 }
 
 

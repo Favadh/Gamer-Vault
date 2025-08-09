@@ -14,7 +14,7 @@
 body {
     background: url(/body-bg.jpg);
     color: white;
-    font-family: 'Aquire', sans-serif !important;
+    /* font-family: 'Aquire', sans-serif !important; */
     margin: 0;
     padding: 0;
 }

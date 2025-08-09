@@ -1,0 +1,81 @@
+/* Auth Buttons */
+.auth-container {
+    display: flex;
+    justify-content: flex-end; /* Moves content to the right */
+    align-items: center;
+    height: 100vh;
+    padding-right: 50px; /* Adjust as needed */
+  }
+  
+  .auth-form {
+    width: 300px; /* Adjust width as needed */
+    background: rgba(0, 0, 0, 0.6); /* Transparent card style */
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+  }
+
+/* Hero Section */
+.hero {
+    background: url('/hero-banner-bg.png') no-repeat center;
+    z-index: 1000;
+    
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    margin-top: 180px;
+}
+
+.heros {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 100vh;
+    padding: 20px;
+    margin-top: 80px;
+    gap: 20px; /* spacing between background section and image */
+}
+
+.hero-background {
+    background: url('/hero-banner-bg.png') no-repeat center center;
+    background-size: cover;
+    width: 50%; /* Adjust as needed */
+    height: 100%;
+}
+
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: white;
+    width: 70%;
+    font-family: 'Aquire', sans-serif !important;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    max-width: 700px;
+    opacity: 0.8;
+    color: white;
+    font-family: 'Aquire', sans-serif !important;
+    /* margin-left: 55px; */
+}
+
+.hero-img{
+    margin-bottom: 222px;
+}
+
+.overlay {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
