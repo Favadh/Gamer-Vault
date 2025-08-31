@@ -150,7 +150,10 @@ export default function Navbar() {
           <li
           onClick={() => {
             setActiveSection('/about-us');
-            // handleNavigate('/contact-us');
+            const storeSection = document.getElementById("about-us");
+            if (storeSection) {
+            storeSection.scrollIntoView({ behavior: "smooth" });
+            }
           }}
           className={activeSection === '/about-us' ? Classes.navActive : ''}
           >
