@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import "./GameAccounts.css";  
+import "./GameAccounts.css";
 import IndexHeader from "./IndexHeader";
 import HeroSection from "./HeroSection";
 import News from "./News";

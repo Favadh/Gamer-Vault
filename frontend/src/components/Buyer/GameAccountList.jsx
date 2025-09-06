@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Accounts.css';
+import "../GameAccounts.css";
 import BuyerProdNav from './BuyerProdNav';
 import BuyerHome from './BuyerHome';
 
@@ -123,17 +124,31 @@ const GameAccountList = () => {
         ) : (
           <div className="game-grid">
             {filteredAccounts.map((account) => (
-              <div key={account._id} className="game-card" onClick={() => handleViewDetails(account._id)}>
-                <img
-                  src={`http://localhost:8000/uploads/coverPhotos/${account.coverPhoto}`}
-                  alt={account.username}
-                  className="game-cover"
-                />
-                <div className="game-info">
-                  <h4>{account.gameName}</h4>
-                  <p className="price">${account.price}</p>
-                  <p className="meta">Platform: {account.platform}</p>
-                  <p className="meta">Mode: {account.gameMode}</p>
+              <div key={account._id} className="game-card" onClick={() => {handleViewDetails(account._id)}}>
+                  <img
+                      src={`http://localhost:8000/uploads/coverPhotos/${account.coverPhoto}`}
+                      alt={account.gameName}
+                      className="game-cover"
+                  />
+                  <span className="hehe"></span>
+                  <div className="game-info">
+                    <div className="game-details">
+                        <div className="game-details-text">
+                            <p className="game-title">{account.gameName}</p>
+                            <p className="game-description">{account.gameMode}</p>
+                            <p className="game-description">{account.platform}</p>
+                            <p className="game-price">₹{account.price}</p>
+                        </div>
+                        <div>
+                            <img className="sellerPhoto" src={`http://localhost:8000/uploads/profilePhotos/${account.profilePhoto}`} alt="Profile Photo" />
+                            <p className="sellerName">{account.username}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <button className="cart-btn">
+                            Add to Cart
+                        </button>
+                    </div>
                 </div>
               </div>
             ))}
