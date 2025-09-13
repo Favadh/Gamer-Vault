@@ -8,7 +8,7 @@ const PaymentVerification = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState("pending");
   const [message, setMessage] = useState("");
-  const [btnText, setBtnText] = useState("Loading...");
+  const [btnText, setBtnText] = useState("");
   const [navPath, setNavPath] = useState("");
   const [bookingId, setBookingId] = useState("");
  
@@ -70,7 +70,7 @@ const PaymentVerification = () => {
         })
         .catch((err) => {
           console.log("The error:",err.message);
-          setStatus("error");
+          setStatus("Error");
           setMessage("Payment verification failed.");
         });
         // api for email sending
