@@ -81,8 +81,10 @@ const MainPage = () => {
                                         <p className="game-price">₹{game.price}</p>
                                     </div>
                                     <div>
-                                        <img className="sellerPhoto" src={`http://localhost:8000/uploads/profilePhotos/${game.profilePhoto}`} alt="Profile Photo" />
-                                        <p className="sellerName">{game.username}</p>
+                                        {/* <img className="sellerPhoto" src={`http://localhost:8000/uploads/profilePhotos/${game.profilePhoto}`} alt="Profile Photo" />
+                                        <p className="sellerName">{game.username}</p> */}
+                                        <img className="sellerPhoto" src="/profile.jpg" alt="Profile Photo" />
+                                        <p className="sellerName">Favadh</p>
                                     </div>
                                 </div>
                                 <div>
@@ -116,7 +118,7 @@ const MainPage = () => {
 
                 <div className="news-card">
                     <div className="news-image">
-                        <img src="../../public/news-1.jpg"/>
+                        <img src="/news-1.jpg"/>
                     </div>                        
 
                     <div className="news-details">
@@ -127,7 +129,7 @@ const MainPage = () => {
 
                 <div className="news-card">
                     <div className="news-image">
-                        <img src="../../public/news-2.jpg"/>
+                        <img src="/news-2.jpg"/>
                     </div>                        
 
                     <div className="news-details">
@@ -138,7 +140,7 @@ const MainPage = () => {
 
                 <div className="news-card">
                     <div className="news-image">
-                        <img src="../../public/news-3.jpg"/>
+                        <img src="/news-3.jpg"/>
                     </div>                        
 
                     <div className="news-details">
@@ -190,7 +192,7 @@ const MainPage = () => {
             <footer className="footer">
                 <div className="details-section">
                     <div>
-                        <img src="../../public/logo.png" alt="logo" />
+                        <img src="/logo.png" alt="logo" />
                         <p>
                             Our platform is a perfect market place for selling and buying of used game accounts with a variety of options.
                         </p>
