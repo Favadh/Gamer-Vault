@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './SellerHome.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-const   SellerSide = () => {
+const SellerSide = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const handleAddProduct = () => navigate('/add');
@@ -12,6 +13,8 @@ const   SellerSide = () => {
   const handleOrders = () => navigate('/orders');
   const handleDash = () => navigate('/seller');
   const handleReview = () => navigate('/sellerreview');
+
+  const isActive = (path) => location.pathname === path;
 
   const handleLogout = () => {
     setShowLogoutConfirm(true);
@@ -29,17 +32,33 @@ const   SellerSide = () => {
       <div className="sidebar">
         <h3 className="logo">
           <img src="/logo.png" alt="Gamer Vault Logo" className="logo-img" />
-          Gamer Vault
+          <span>Gamer Vault</span>
         </h3>
         <ul className="blah">
-          <li onClick={handleDash}><i className="bi bi-speedometer2"></i> Dashboard</li>
-          <li onClick={handleViewProduct}><i className="bi bi-person-circle"></i> Products</li>
-          <li onClick={handleChange}><i className="bi bi-toggle-on"></i> Switch to Buyer</li>
-          <li onClick={handleReview}><i className="bi bi-toggle-on"></i> Review</li>
-          <li onClick={handleOrders}><i className="bi bi-toggle-on"></i> Orders</li>
+          <li onClick={handleDash} className={isActive('/seller') ? 'active' : ''}>
+            <i className="bi bi-speedometer2"></i> 
+            <span>Dashboard</span>
+          </li>
+          <li onClick={handleViewProduct} className={isActive('/userGameAccount') ? 'active' : ''}>
+            <i className="bi bi-grid-3x3-gap"></i> 
+            <span>My Products</span>
+          </li>
+          <li onClick={handleOrders} className={isActive('/orders') ? 'active' : ''}>
+            <i className="bi bi-bag-check"></i> 
+            <span>Orders</span>
+          </li>
+          <li onClick={handleReview} className={isActive('/sellerreview') ? 'active' : ''}>
+            <i className="bi bi-star"></i> 
+            <span>Reviews</span>
+          </li>
+          <li onClick={handleChange}>
+            <i className="bi bi-arrow-left-right"></i> 
+            <span>Switch to Buyer</span>
+          </li>
         </ul>
         <div className="logout" onClick={handleLogout}>
-          <i className="bi bi-box-arrow-left"></i> Log Out
+          <i className="bi bi-box-arrow-left"></i> 
+          <span>Log Out</span>
         </div>
       </div>
 

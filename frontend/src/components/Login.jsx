@@ -205,9 +205,6 @@ function  Login() {
                     <div className="input-group">
                         <label htmlFor="username">Username:</label>
                         <input
-                            style={{
-                                borderRadius: '5px'
-                            }}
                             id="username"
                             type="text"
                             className="input-field"
@@ -219,9 +216,6 @@ function  Login() {
                     <div className="input-group">
                         <label htmlFor="password">Password:</label>
                         <input
-                            style={{
-                                borderRadius: '5px'
-                            }}
                             id="password"
                             type="password"
                             className="input-field"
@@ -231,9 +225,7 @@ function  Login() {
                         />
                     </div>
                     {error && <p className="error-message">{error}</p>}
-                    <button style={{
-                        fontSize: '20px'
-                    }} type="submit" className="login-button">Login</button>
+                    <button type="submit" className="login-button">Login</button>
                 </form>
                 <p className="signup-link">Don't have an account? <Link style={{color: '#7301FF'}} to='/signup'>Signup</Link></p>
                 {userId && <p className="user-id">User ID: {userId}</p>}

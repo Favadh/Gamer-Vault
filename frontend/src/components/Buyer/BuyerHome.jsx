@@ -15,17 +15,28 @@ const BuyerHome = () => {
   };
 
   return (
-      <div className="search-section">
-        <form className="search-bar" onSubmit={handleSearch}>
-          <FaSearch className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search games..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </form>
+    <div className="buyer-home">
+      <div className="hero-content">
+        <h1 className="hero-title">
+          FIND YOUR NEXT <span>LEVEL</span>
+        </h1>
+        <p className="hero-subtitle">
+          Secure, fast, and premium game account marketplace.
+        </p>
+        <div className="search-section">
+          <form className="search-bar" onSubmit={handleSearch}>
+            <FaSearch className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search for Valorant, Steam, Epic..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button type="submit" className="search-btn">Search</button>
+          </form>
+        </div>
       </div>
+    </div>
   );
 
 };

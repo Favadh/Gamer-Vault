@@ -1,86 +1,135 @@
-.update-profile-container {
-    min-height: 100vh;
-    background: radial-gradient(circle at top, #1a1138, #0e0b29);
-    color: white;
-    padding: 40px;
-    font-family: 'Segoe UI', sans-serif;
+.profile-dashboard {
+  min-height: 100vh;
+}
+
+.profile-header-main {
+  margin-bottom: 3rem;
+}
+
+.profile-header-main h2 {
+  font-family: 'Aquire', sans-serif;
+  font-size: 2.5rem;
+}
+
+.profile-header-main span {
+  color: var(--primary-color);
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2rem;
+}
+
+.profile-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 2.5rem;
+}
+
+.avatar-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+
+.main-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--primary-color);
+  padding: 5px;
+}
+
+.avatar-edit-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: var(--primary-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: var(--transition-fast);
+}
+
+.avatar-edit-btn:hover {
+  transform: scale(1.1);
+  background: var(--primary-hover);
+}
+
+.role-badge {
+  display: inline-block;
+  background: rgba(115, 1, 255, 0.1);
+  color: var(--primary-color);
+  padding: 0.3rem 1rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 1rem;
+}
+
+.details-header h3 {
+  font-family: 'Aquire', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--primary-color);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-item label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.detail-value {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: white;
+  border: 1px solid var(--glass-border);
+}
+
+@media (max-width: 900px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
   }
   
-  .profile-wrapper {
-    max-width: 800px;
-    margin: auto;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 16px;
-    padding: 30px 40px;
-    box-shadow: 0 0 30px rgba(157, 78, 221, 0.2);
+  .details-grid {
+    grid-template-columns: 1fr;
   }
-  
-  .profile-section h5,
-  .account-info-section h5 {
-    color: #d2bfff;
-    margin-bottom: 4px;
-  }
-  
-  .profile-pic-container {
-    display: flex;
-    align-items: center;
-    margin-top: 12px;
-  }
-  
-  .profile-pic {
-    position: relative;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: #222;
-    overflow: hidden;
-    cursor: pointer;
-    border: 2px solid #9d4edd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .profile-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .camera-icon {
-    position: absolute;
-    bottom: 0;
-    background: #9d4edd;
-    color: white;
-    width: 100%;
-    text-align: center;
-    font-size: 0.8rem;
-    padding: 3px 0;
-  }
-  
-  .account-info-section {
-    margin-top: 30px;
-  }
-  
-  .info-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 15px;
-  }
-  
-  
-  .info-grid input {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid #9d4edd50;
-    padding: 10px 14px;
-    border-radius: 10px;
-    color: white;
-    outline: none;
-    transition: border 0.3s ease;
-  }
-  
-  .info-grid input:focus {
-    border: 1px solid #9d4edd;
-  }
-  
+}

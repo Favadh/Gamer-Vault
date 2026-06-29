@@ -79,84 +79,98 @@ const GameAccountList = () => {
       <BuyerProdNav />
       <BuyerHome />
 
-      <div style={{ marginTop: '100px' }}>
+      <div className="store-container">
         <div className="header-bar">
-          <h2 className="featured-title">Featured and <span>Recommended</span></h2>
+          <div className="title-group">
+            <h2 className="featured-title">MARKET<span>PLACE</span></h2>
+            <p className="results-count">{filteredAccounts.length} accounts available</p>
+          </div>
 
-          <div className="filters">
-            <select
-              className="filter-dropdown"
-              value={selectedPlatform}
-              onChange={(e) => setSelectedPlatform(e.target.value)}
-            >
-              <option value="" className='bg-light text-dark'>All Platforms</option>
-              <option value="PC" className='bg-light text-dark'>PC</option>
-              <option value="PS4" className='bg-light text-dark'>PS4</option>
-              <option value="Xbox" className='bg-light text-dark'>Xbox</option>
-              <option value="Mobile" className='bg-light text-dark'>Mobile</option>
-            </select>
+          <div className="filters-group">
+            <div className="filter-item">
+              <select
+                className="custom-select"
+                value={selectedPlatform}
+                onChange={(e) => setSelectedPlatform(e.target.value)}
+              >
+                <option value="">All Platforms</option>
+                <option value="PC">PC</option>
+                <option value="PS4">PS4</option>
+                <option value="Xbox">Xbox</option>
+                <option value="Mobile">Mobile</option>
+              </select>
+            </div>
 
-            <select
-              className="filter-dropdown"
-              value={selectedGameMode}
-              onChange={(e) => setSelectedGameMode(e.target.value)}
-            >
-              <option value="" className='bg-light text-dark'>All Game Modes</option>
-              <option value="Multiplayer" className='bg-light text-dark'>Multiplayer</option>
-              <option value="Single Player" className='bg-light text-dark'>Single Player</option>
-              <option value="Co-op" className='bg-light text-dark'>Co-op</option>
-            </select>
+            <div className="filter-item">
+              <select
+                className="custom-select"
+                value={selectedGameMode}
+                onChange={(e) => setSelectedGameMode(e.target.value)}
+              >
+                <option value="">All Modes</option>
+                <option value="Multiplayer">Multiplayer</option>
+                <option value="Single Player">Single Player</option>
+                <option value="Co-op">Co-op</option>
+              </select>
+            </div>
 
-            <select
-              className="sort-dropdown bg-transparent text-white" style={{ padding: '5px', borderRadius: '5px' }}
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
-            >
-              <option value="" className='bg-light text-dark'>Sort by Price</option>
-              <option value="lowToHigh" className='bg-light text-dark'>Price: Low to High</option>
-              <option value="highToLow" className='bg-light text-dark'>Price: High to Low</option>
-            </select>
+            <div className="filter-item">
+              <select
+                className="custom-select sort-select"
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+              >
+                <option value="">Sort by Price</option>
+                <option value="lowToHigh">Lowest Price</option>
+                <option value="highToLow">Highest Price</option>
+              </select>
+            </div>
           </div>
         </div>
 
         {error ? (
-          <p className="text-danger">{error}</p>
+          <div className="error-box">{error}</div>
         ) : (
           <div className="game-grid">
             {filteredAccounts.map((account) => (
-              <div key={account._id} className="game-card" onClick={() => {handleViewDetails(account._id)}}>
+              <div key={account._id} className="modern-card" onClick={() => handleViewDetails(account._id)}>
+                <div className="card-image-wrapper">
                   <img
-                      src={`http://localhost:8000/uploads/coverPhotos/${account.coverPhoto}`}
-                      alt={account.gameName}
-                      className="game-cover"
+                    src={`http://localhost:8000/uploads/coverPhotos/${account.coverPhoto}`}
+                    alt={account.gameName}
+                    className="card-image"
                   />
-                  <span className="hehe"></span>
-                  <div className="game-info">
-                    <div className="game-details">
-                        <div className="game-details-text">
-                            <p className="game-title">{account.gameName}</p>
-                            <p className="game-description">{account.gameMode}</p>
-                            <p className="game-description">{account.platform}</p>
-                            <p className="game-price">₹{account.price}</p>
-                        </div>
-                        <div>
-                            <img className="sellerPhoto" src={`http://localhost:8000/uploads/profilePhotos/${account.profilePhoto}`} alt="Profile Photo" />
-                            <p className="sellerName">{account.username}</p>
-                        </div>
+                  <div className="platform-tag">{account.platform}</div>
+                  <div className="price-tag">₹{account.price}</div>
+                </div>
+                
+                <div className="card-body">
+                  <h3 className="card-title">{account.gameName}</h3>
+                  <div className="card-meta">
+                    <span className="mode-badge">{account.gameMode}</span>
+                  </div>
+                  
+                  <div className="card-footer">
+                    <div className="seller-mini">
+                      <img 
+                        src={`http://localhost:8000/uploads/profilePhotos/${account.profilePhoto}`} 
+                        alt={account.username} 
+                      />
+                      <span>{account.username}</span>
                     </div>
-                    <div>
-                        <button className="cart-btn">
-                            Add to Cart
-                        </button>
-                    </div>
+                    <button className="view-btn">View Details</button>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         )}
 
-        {filteredAccounts.length === 0 && (
-          <p className="no-results">No results found for "{search}"</p>
+        {filteredAccounts.length === 0 && !error && (
+          <div className="no-results-box">
+            <p>No accounts match your criteria.</p>
+            <button onClick={() => {setSelectedPlatform(''); setSelectedGameMode(''); setSortOrder('');}} className="clear-filters">Clear All Filters</button>
+          </div>
         )}
       </div>
     </div>

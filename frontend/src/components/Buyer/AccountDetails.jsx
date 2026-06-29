@@ -74,62 +74,107 @@ const GameAccountDetail = () => {
     if (!gameAccount) return <p>Loading...</p>;
 
     return (
-        <div>
+        <div className="detail-page-wrapper">
             <BuyerProdNav />
-            <div className="game-detail-container mt-5">
-                <div className="game-detail-card">
-                    {/* Left Side */}
-                    <div className="left-column">
-                        <img
-                            src={`http://localhost:8000/uploads/screenshots/${gameAccount.screenshots[0]}`}
-                            alt="profile"
-                            className="main-profile-img"
-                            id="mainProfileImg"
-                        />
-                        <div className="screenshot-scroll" ref={scrollRef}>
+            
+            <div className="detail-container">
+                <div className="detail-layout">
+                    {/* Media Gallery Section */}
+                    <div className="gallery-section">
+                        <div className="main-image-container">
+                            <img
+                                src={`http://localhost:8000/uploads/screenshots/${gameAccount.screenshots[0]}`}
+                                alt="Main View"
+                                className="main-display"
+                                id="mainProfileImg"
+                            />
+                            <div className="platform-overlay">{gameAccount.platform}</div>
+                        </div>
+                        
+                        <div className="thumbnail-track" ref={scrollRef}>
                             {gameAccount.screenshots.map((screenshot, index) => (
-                                <img
+                                <div 
+                                    className="thumb-wrapper" 
                                     key={index}
-                                    src={`http://localhost:8000/uploads/screenshots/${screenshot}`}
-                                    alt={`Screenshot ${index + 1}`}
-                                    className="screenshot-img"
                                     onClick={() => {
                                         const mainImg = document.getElementById('mainProfileImg');
                                         if (mainImg) {
                                             mainImg.src = `http://localhost:8000/uploads/screenshots/${screenshot}`;
                                         }
                                     }}
-                                />
+                                >
+                                    <img
+                                        src={`http://localhost:8000/uploads/screenshots/${screenshot}`}
+                                        alt={`View ${index + 1}`}
+                                    />
+                                </div>
                             ))}
                         </div>
-                        <div className="button-group">
-                            <button className="buy" onClick={handleBuy}>Buy Now</button>
-                            <button className="add" onClick={handleAddToCart}>Add to Cart</button>
-                        </div>
-                        {success && <p className="success-msg">{success}</p>}
-                        {error && <p className="error-msg">{error}</p>}
                     </div>
 
-                    {/* Right Side */}
-                    <div className="right-column">
-
-                        <img
-                            src={`http://localhost:8000/uploads/coverPhotos/${gameAccount.coverPhoto}`}
-                            alt="cover"
-                            className="cover-img"
-                        />
-                        <h2 className="game-name">{gameAccount.gameName}</h2>
-                        <p className="description realdes">{gameAccount.description}</p>
-                        <p className="description gameMode">{gameAccount.gameMode}</p>
-                        <p className="price ">${gameAccount.price}</p>
-                        <p className="description">{gameAccount.platform}</p>
-
-                        <div className="user-card">
-                            <h4>Seller Info</h4>
-                            <p>Username: {gameAccount.username}</p>
-                            <p>Email: {gameAccount.email}</p>
-                            <p>Level: Intermediate</p>
+                    {/* Content Section */}
+                    <div className="info-section">
+                        <div className="info-header">
+                            <h1 className="game-title-main">{gameAccount.gameName}</h1>
+                            <div className="badge-group">
+                                <span className="mode-tag">{gameAccount.gameMode}</span>
+                                <span className="status-tag active">Instant Delivery</span>
+                            </div>
                         </div>
+
+                        <div className="description-box">
+                            <h3>Description</h3>
+                            <p>{gameAccount.description}</p>
+                        </div>
+
+                        <div className="specs-grid">
+                            <div className="spec-item">
+                                <span className="label">Platform</span>
+                                <span className="value">{gameAccount.platform}</span>
+                            </div>
+                            <div className="spec-item">
+                                <span className="label">Account Region</span>
+                                <span className="value">Global</span>
+                            </div>
+                            <div className="spec-item">
+                                <span className="label">Level</span>
+                                <span className="value">Competitive Ready</span>
+                            </div>
+                        </div>
+
+                        <div className="seller-box">
+                            <div className="seller-info-main">
+                                <div className="seller-avatar">
+                                    <img 
+                                        src={`http://localhost:8000/uploads/profilePhotos/${gameAccount.profilePhoto}`} 
+                                        alt={gameAccount.username} 
+                                    />
+                                </div>
+                                <div className="seller-details">
+                                    <h4>{gameAccount.username}</h4>
+                                    <p><i className="bi bi-star-fill"></i> Top Rated Seller</p>
+                                </div>
+                                <button className="contact-btn">Contact Seller</button>
+                            </div>
+                        </div>
+
+                        <div className="action-bar-sticky">
+                            <div className="price-display">
+                                <span className="label">Total Price</span>
+                                <span className="amount">₹{gameAccount.price}</span>
+                            </div>
+                            <div className="btn-group-main">
+                                <button className="add-cart-btn" onClick={handleAddToCart}>
+                                    <i className="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                                <button className="buy-now-btn" onClick={handleBuy}>
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                        
+                        {success && <div className="success-banner">{success}</div>}
+                        {error && <div className="error-banner">{error}</div>}
                     </div>
                 </div>
             </div>

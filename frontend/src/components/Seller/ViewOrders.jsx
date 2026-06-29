@@ -111,38 +111,57 @@ const ViewOrders = () => {
   
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
+    <div className="seller-dashboard">
       <SellerSide />
-
-      <div style={{ flex: 1, padding: '20px', color: 'white' }}>
-        <h2 style={{color:'white'}} className="text-2xl font-semibold mb-4">Your Orders</h2>
+      <div className="main-content">
+        <div className="top-bar">
+          <div className="title-group">
+            <h2 className="featured-title">CUSTOMER <span>ORDERS</span></h2>
+            <p className="results-count">{orders.length} transactions found</p>
+          </div>
+        </div>
 
         {loading ? (
-          <p className="text-white">Loading orders...</p>
+          <div className="loading-box">
+            <div className="spinner"></div>
+            <p>Fetching your orders...</p>
+          </div>
         ) : error ? (
-          <p className="text-red-500">{error}</p>
+          <div className="error-box">{error}</div>
         ) : orders.length === 0 ? (
-          <p className="text-gray-400">No orders placed.</p>
+          <div className="no-results-box">
+            <i className="bi bi-cart-x" style={{ fontSize: '3rem', color: 'var(--text-muted)' }}></i>
+            <p>No orders have been placed for your listings yet.</p>
+          </div>
         ) : (
-          <div className="overflow-x-auto w-full">
-            <table className="w-full text-left border border-gray-600 shadow-lg rounded-lg">
-              <thead className="bg-gray-800">
+          <div className="glass-table-container">
+            <table className="modern-table">
+              <thead>
                 <tr>
-                  <th className="border px-4 py-2">Buyer Name</th>
-                  <th className="border px-4 py-2">Buyer Email</th>
-                  <th className="border px-4 py-2">Price</th>
-                  <th className="border px-4 py-2">Transaction ID</th>
-                  <th className="border px-4 py-2">Payment Status</th>
+                  <th>Buyer</th>
+                  <th>Contact Info</th>
+                  <th>Price</th>
+                  <th>Transaction ID</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                 {orders.map((order, index) => (
-                  <tr key={index} className="bg-gray-900 hover:bg-gray-800">
-                    <td className="border px-4 py-2">{order.buyer?.username}</td>
-                    <td className="border px-4 py-2">{order.buyer?.email}</td>
-                    <td className="border px-4 py-2">${order.totalPrice}</td>
-                    <td className="border px-4 py-2">{order.transactionId || 'N/A'}</td>
-                    <td className="border px-4 py-2">{order.paymentStatus}</td>
+                  <tr key={index}>
+                    <td>
+                      <div className="buyer-cell">
+                        <i className="bi bi-person-circle"></i>
+                        <span>{order.buyer?.username}</span>
+                      </div>
+                    </td>
+                    <td>{order.buyer?.email}</td>
+                    <td className="price-cell">₹{order.totalPrice}</td>
+                    <td className="transaction-cell"><code>{order.transactionId || 'N/A'}</code></td>
+                    <td>
+                      <span className={`badge-payment ${order.paymentStatus?.toLowerCase() === 'paid' ? 'success' : 'pending'}`}>
+                        {order.paymentStatus}
+                      </span>
+                    </td>
                   </tr>
                 ))}
               </tbody>

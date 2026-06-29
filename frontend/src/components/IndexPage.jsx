@@ -6,22 +6,24 @@ import HeroSection from "./HeroSection";
 import News from "./News";
 import { useNavigate } from "react-router-dom";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
+import { localGameAccounts } from "./localGameData";
 
 const MainPage = () => {
-    const [gameAccounts, setGameAccounts] = useState([]);
+    const [gameAccounts, setGameAccounts] = useState(localGameAccounts);
     const navigate = useNavigate();
 
     const [showScrollDown, setShowScrollDown] = useState(true);
     const containerRef = useRef(null);
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/game")
-            .then((response) => {
-                setGameAccounts(response.data);
-            })
-            .catch((error) => {
-                console.error("Error fetching game accounts:", error);
-            });
+        // Offline Mode: Data loaded from localGameData.js
+        // axios.get("http://localhost:8000/api/game")
+        //     .then((response) => {
+        //         setGameAccounts(response.data);
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error fetching game accounts:", error);
+        //     });
     }, []);
     const handlePopUp = () => {
         alert('you need to login to see the game accounts');
@@ -66,7 +68,7 @@ const MainPage = () => {
                     {gameAccounts.map((game) => (
                         <div key={game._id} className="game-card" onClick={handlePopUp}>
                             <img
-                                src={`http://localhost:8000/uploads/coverPhotos/${game.coverPhoto}`}
+                                src={game.coverPhoto?.startsWith('/game-cover/') ? game.coverPhoto : `http://localhost:8000/uploads/coverPhotos/${game.coverPhoto}`}
                                 alt={game.gameName}
                                 className="game-cover"
                             />
@@ -151,13 +153,7 @@ const MainPage = () => {
             <div className="store-title">
                 <div className="store-subtitle">
                     <h1 id="about-us">SIMPLE, SECURE,</h1>
-                    <p className="store-gears"
-                    style={{
-                        fontSize: '50px',
-                        fontWeight: 'bold',
-                        marginLeft: '7px',
-                        marginRight: '7px',
-                    }}>AND</p>
+                    <p className="store-gears store-and-text">AND</p>
                     <h1>RELIABLE</h1>
                 </div>
             </div>

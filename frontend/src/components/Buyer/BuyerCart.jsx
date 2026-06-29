@@ -9,6 +9,7 @@ const BuyerCart = () => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
+    const [isCheckingOut, setIsCheckingOut] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -59,6 +60,7 @@ const BuyerCart = () => {
     };
 
     const handleCheckout = async () => {
+        setIsCheckingOut(true);
         const userId = localStorage.getItem('userid');
         try {
             
@@ -76,10 +78,11 @@ const BuyerCart = () => {
             const urlObj = new URL(paypalUrl.data.url);
             const token = urlObj.searchParams.get("token");
 
-            const res = await axios.post(`http://localhost:8000/api//bookall/${userId}/${token}`);
+            await axios.post(`http://localhost:8000/api//bookall/${userId}/${token}`);
 
             if (!paypalUrl.data || !paypalUrl.data.url) {
                 alert("Failed to get payment URL");
+                setIsCheckingOut(false);
                 return;
             }
             
@@ -88,68 +91,101 @@ const BuyerCart = () => {
         } catch (error) {
             console.error("Booking error:", error.message);
             alert("Failed to book game account. Please try again.");
+            setIsCheckingOut(false);
         }
     };
 
     return (
-        <div>
+        <div className="profile-dashboard">
             <BuyerProdNav />
-            <h2 className="text-start cart-title">Your Shopping Cart</h2>
+            <div className="store-container">
+                <div className="profile-header-main">
+                    <h2>Your <span>Cart</span></h2>
+                    <p>You have {cartItems.length} items in your shopping bag.</p>
+                </div>
 
-            {loading ? (
-                <p className="text-center">Loading cart...</p>
-            ) : (
-                <div className="cart-container">
-                    <div className="cart-items">
-                        {cartItems.length > 0 ? (
-                            cartItems.map(item => {
-                                const account = item.gameAccountId;
-                                return (
-                                    <div className="cart-card" key={item._id}>
-                                        <img
-                                            src={`http://localhost:8000/uploads/coverPhotos/${account.coverPhoto}`}
-                                            alt={account.gameName}
-                                            className="cart-image"
-                                        />
-                                        <div className="cart-info">
-                                            <h4>{account.gameName}</h4>
-                                            <p>₹{account.price}</p>
-                                            <p>{account.description}</p>
-                                            <button className="remove-btn" onClick={() => handleRemoveItem(account._id)}>Remove</button>
-
-                                            
-                                            
+                {loading ? (
+                    <div className="loading-box">
+                        <div className="spinner"></div>
+                        <p>Loading your cart...</p>
+                    </div>
+                ) : (
+                    <div className="cart-container">
+                        <div className="cart-items">
+                            {cartItems.length > 0 ? (
+                                cartItems.map(item => {
+                                    const account = item.gameAccountId;
+                                    return (
+                                        <div className="cart-card" key={item._id}>
+                                            <img
+                                                src={`http://localhost:8000/uploads/coverPhotos/${account.coverPhoto}`}
+                                                alt={account.gameName}
+                                                className="cart-image"
+                                            />
+                                            <div className="cart-info">
+                                                <h4>{account.gameName}</h4>
+                                                <p className="price">₹{account.price}</p>
+                                                <p>{account.description}</p>
+                                                <button className="remove-btn" onClick={() => handleRemoveItem(account._id)}>
+                                                    <i className="bi bi-trash"></i> Remove
+                                                </button>
+                                            </div>
                                         </div>
+                                    );
+                                })
+                            ) : (
+                                <div className="no-results-box" style={{ width: '100%' }}>
+                                    <i className="bi bi-cart-x" style={{ fontSize: '3rem' }}></i>
+                                    <p>Your cart is empty.</p>
+                                    <button className="clear-filters" onClick={() => navigate('/game')}>Explore Market</button>
+                                </div>
+                            )}
+                        </div>
+
+                        {cartItems.length > 0 && (
+                            <div className="cart-summary">
+                                <h5>Order Summary</h5>
+                                <div className="summary-details">
+                                    {cartItems.map(item => (
+                                        <div className="summary-row" key={item._id}>
+                                            <span>{item.gameAccountId?.gameName}</span>
+                                            <span>₹{item.gameAccountId?.price}</span>
+                                        </div>
+                                    ))}
+                                    <div className="summary-row">
+                                        <span>Estimated Tax</span>
+                                        <span>₹0.00</span>
                                     </div>
-                                );
-                            })
-                        ) : (
-                            <p className="text-center">Your cart is empty.</p>
+                                    <div className="summary-total">
+                                        <span>Total</span>
+                                        <span>₹{totalPrice}</span>
+                                    </div>
+                                </div>
+
+                                <button 
+                                    className={`checkout-btn ${isCheckingOut ? 'loading-state' : ''}`} 
+                                    onClick={() => handleCheckout()}
+                                    disabled={isCheckingOut}
+                                >
+                                    {isCheckingOut ? (
+                                        <>
+                                            <span className="spinner-border spinner-border-sm me-2"></span>
+                                            Processing...
+                                        </>
+                                    ) : (
+                                        <>
+                                            Proceed to Checkout <i className="bi bi-arrow-right"></i>
+                                        </>
+                                    )}
+                                </button>
+                                <p style={{ textAlign: 'center', marginTop: '1rem', fontSize: '0.8rem', color: '#ffffff', opacity: 0.6 }}>
+                                    Secure SSL encrypted payment
+                                </p>
+                            </div>
                         )}
                     </div>
-
-                    {cartItems.length > 0 && (
-                        <div className="cart-summary">
-                            <div>
-                                <h5>Prices:</h5>
-                                {cartItems.map(item => (
-                                    <p key={item._id}>₹{item.gameAccountId?.price}</p>
-                                ))}
-
-                                <hr />
-                                <p>Taxes: <em>calculated at checkout</em></p>
-                                <p><strong>Subtotal ({cartItems.length} items): ₹{totalPrice}</strong></p>
-                            </div>
-
-                            <div className="cart-actions">
-                                {/* <button className="btn-outline" onClick={() => navigate('/game')}>Continue Shopping</button> */}
-
-                                <button className="checkout-btn" onClick={() => handleCheckout() }>Checkout</button>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 };

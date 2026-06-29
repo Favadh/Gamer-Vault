@@ -1,11 +1,13 @@
 #store{
-    margin-bottom: 80px;
+    margin-bottom: 5vw;
 }
 
 .store-title {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 15px;
+    text-align: center;
 }
 
 .store-title h1 {
@@ -20,7 +22,9 @@
 .store-subtitle {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 4px;
+    flex-wrap: wrap;
 }
 
 .store-top{
@@ -43,29 +47,40 @@
     margin: 0;
 }
 
+.store-and-text {
+    font-size: 50px;
+    font-weight: bold;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
 .game-accounts-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 800px;
+    height: 80vh;
+    min-height: 500px;
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     scrollbar-width: none;
     position: relative;
-    margin: 80px;
-    margin-bottom: 200px;
+    margin: 5vw;
+    margin-bottom: 10vh;
+    padding-bottom: 120px;
     background-color: rgba(0, 0, 0, 0.175);
     backdrop-filter: blur(10px);
     border: 0.5px solid rgba(255, 255, 255, 0.060);
+    border-radius: 15px;
 }
 
 .game-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 20px;
     max-width: 1200px;
+    width: 100%;
     margin: 30px auto;
+    padding: 0 20px;
 }
 
 .scroll-down{
@@ -117,14 +132,14 @@
 
 
 .game-card {
-    flex: 1 1 calc(25% - 20px); /* Ensures 4 cards per row */
-    max-width: 280px;
     background-color: #0C0C36;
     border-radius: 9.5px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /*Glowing effect */
     overflow: hidden;
     text-align: center;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
 }
 
 .game-card:hover {
@@ -144,6 +159,8 @@
     gap: 20px;
     padding: 15px;
     background: radial-gradient(circle 125px at 50% 50%, rgba(151, 66, 255, 0.15), rgba(0, 0, 0, 0));
+    flex-grow: 1;
+    justify-content: space-between;
 }
 
 .game-details {
@@ -157,6 +174,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+    text-align: left;
 }
 
 .game-title {
@@ -165,7 +183,6 @@
     margin: 0;
     font-family: 'Oxanium', sans-serif;
     color: #ffffff; /* Light purple text */
-    text-align: left;
     text-overflow: ellipsis;
 }
 
@@ -183,11 +200,13 @@
 .cart-btn{
     color: white;
     background-color: #7301FF;
-    padding: 5px 15px;
+    padding: 10px 15px;
     border-radius: 5px;
     border: none;
     font-family: 'Oxanium', sans-serif;
     transition: background-color 0.3s ease;
+    width: 100%;
+    cursor: pointer;
 }
 
 .cart-btn:hover {
@@ -196,22 +215,29 @@
 
 .sellerPhoto{
     height: 40px;
+    width: 40px;
+    object-fit: cover;
     border-radius: 50px;
 }
 
 .sellerName{
     font-size: 12px;
     letter-spacing: 0.2px;
+    margin-top: 5px;
+    word-break: break-word;
 }
 
 .news-section{
     display: flex;
-    align-items: center;
-    justify-content: space-around;
+    align-items: stretch;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
     width: 100%;
-    height: 550px;
-    margin-top: 80px;
-    margin-bottom: 200px;
+    height: auto;
+    padding: 40px 20px;
+    margin-top: 5vw;
+    margin-bottom: 10vh;
     background-color: #9742ff07;
     backdrop-filter: blur(5px);
     border: 1px solid #9742ff44;
@@ -222,23 +248,27 @@
 .news-card{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 350px;
-    height: 450px;
+    width: 100%;
+    max-width: 350px;
+    height: auto;
     background-color: #0C0C36;
     border: 0.5px solid #9742ff22;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .news-image img {
     width: 100%;
+    height: 200px;
     object-fit: cover;
 }
 
 .news-details {
-    align-self: flex-start;
-    padding: 15px 30px;
-    
+    padding: 15px 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .news-details h3 {
@@ -262,108 +292,181 @@
 .about-us-div{
     display: flex;
     justify-content: center;
+    padding: 0 20px;
 }
 
 .about-section{
-    width: 80%;
-    margin-top: 80px;
-    margin-bottom: 200px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 5vw;
+    margin-bottom: 10vh;
     background-color: #9742ff07;
     backdrop-filter: blur(5px);
     border: 1px solid #9742ff44;
     border-bottom: none;
-    padding: 60px;
+    border-radius: 15px 15px 0 0;
+    padding: 5vw;
     color: white;
     font-size: 24px;
     font-family: 'Oxanium', sans-serif;
     letter-spacing: 0.5px;
+    line-height: 1.6;
 }
 
 .footer{
     display: flex;
     flex-direction: column;
-    /* margin: 30px; */
     font-family: 'Oxanium', 'sans-serif';
+    width: 100%;
 }
 
 .details-section{
     display: flex;
-    justify-content:space-between;
+    flex-wrap: wrap;
+    justify-content:space-around;
     background-color: #0C0C36;
+    padding: 40px 20px;
+    gap: 30px;
 }
 
 .details-section div{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-left: 30px;
-    margin-right: 30px;
+    align-items: flex-start;
 }
 
 .details-section div p {
-    width: 230px;
-    font-size: 20px;
+    width: 100%;
+    max-width: 250px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.details-section > div:first-child {
+    align-items: center;
+    text-align: center;
 }
 
 .details-section div img {
-    height: 100px;
+    height: 80px;
+    margin-bottom: 15px;
 }
 
 .useful-link{
     font-weight: 600;
     border-bottom: 2px solid #7301FF;
     border-width: 5px;
+    margin-bottom: 15px;
+    display: inline-block;
+    padding-bottom: 5px;
 }
 
 .links{
-    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
 .links p{
     cursor: pointer;
+    margin: 5px 0;
+    transition: color 0.2s ease;
+}
+
+.links p:hover {
+    color: #7301FF;
 }
 
 .contact-info{
-    margin-bottom: 18px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 .contact-info p{
     margin: 0;
-    line-height: 25px;
+    line-height: 1.4;
 }
 
 .purple{
     color: #9742FF;
+    font-weight: bold;
 }
 
 .copyright-section{
     background-color: #080828;
     text-align: center;
-    padding: 10px;
+    padding: 15px;
 }
 
 .copyright-section p{
-    margin-top: 8px;
-    font-size: 19px;
+    margin: 0;
+    font-size: 16px;
     font-weight: 550;
+    color: #ffffff;
 }
 
 /* Responsive Adjustments */
-@media (max-width: 1200px) {
-    .game-card {
-        flex: 1 1 calc(33.33% - 20px); /* 3 cards per row */
+@media (max-width: 1024px) {
+    .store-title h1 {
+        font-size: 2.5rem;
+    }
+    .store-and-text {
+        font-size: 40px;
+    }
+    .about-section {
+        font-size: 20px;
+        padding: 40px;
+    }
+    .details-section {
+        justify-content: flex-start;
     }
 }
 
-@media (max-width: 900px) {
-    .game-card {
-        flex: 1 1 calc(50% - 20px); /* 2 cards per row */
+@media (max-width: 768px) {
+    .store-title h1 {
+        font-size: 2rem;
+    }
+    .store-top, .store-gears {
+        font-size: 1rem;
+    }
+    .store-and-text {
+        font-size: 30px;
+    }
+    .game-accounts-container {
+        margin: 5vw 20px;
+    }
+    .about-section {
+        font-size: 18px;
+        padding: 30px;
+    }
+    .details-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .details-section div {
+        align-items: center;
+    }
+    .useful-link {
+        margin: 10px auto;
     }
 }
 
-@media (max-width: 600px) {
-    .game-card {
-        flex: 1 1 100%; /* 1 card per row */
+@media (max-width: 480px) {
+    .store-title h1 {
+        font-size: 1.5rem;
+    }
+    .store-and-text {
+        font-size: 24px;
+    }
+    .game-cards {
+        grid-template-columns: 1fr;
+    }
+    .news-card {
+        max-width: 100%;
+    }
+    .about-section {
+        font-size: 16px;
+        padding: 20px;
     }
 }
-

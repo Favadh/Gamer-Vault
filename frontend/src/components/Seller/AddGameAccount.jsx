@@ -229,186 +229,175 @@ const AddGameAccount = () => {
     };
 
     return (
-        <div className="d-flex">
-            <SellerSide />
-        <div className="container d-flex justify-content-center align-items-start mt-5 min-vh-100">
-            <div
-                className="card p-4 shadow"
-                style={{
-                    background: "rgba(255, 255, 255, 0.1)",
-                    backdropFilter: "blur(10px)",
-                    borderRadius: "20px",
-                    width: "100%",
-                    maxWidth: "700px",
-                    color: "#fff",
-                }}
-            >
-                <h2 style={{color: 'white'}} className="text-center mb-4">Add Game Account</h2>
-                <form onSubmit={handleAddGameAccount} encType="multipart/form-data">
-                    <div className="row">
+    <div className="seller-dashboard">
+      <SellerSide />
+      <div className="main-content">
+        <div className="form-container">
+          <div className="form-header">
+            <h2>Add New <span>Account</span></h2>
+            <p>List your gaming account for sale on the marketplace.</p>
+          </div>
 
-                        <div className="col-md-6 mb-3">
-                            <label>Game Name:</label>
-                            <input
-                                type="text"
-                                className="form-control bg-transparent text-white border-white"
-                                value={gameName}
-                                onChange={(e) => setGameName(e.target.value)}
-                                required
-                            />
-                        </div>
+          <form onSubmit={handleAddGameAccount} className="modern-form" encType="multipart/form-data">
+            {/* Basic Info Section */}
+            <div className="form-section">
+              <h3><i className="bi bi-info-circle"></i> Basic Information</h3>
+              <div className="form-grid">
+                <div className="form-group">
+                  <label>Game Title</label>
+                  <input
+                    type="text"
+                    className="custom-input"
+                    value={gameName}
+                    onChange={(e) => setGameName(e.target.value)}
+                    placeholder="e.g. Valorant, League of Legends"
+                    required
+                  />
+                </div>
 
-                        <div className="col-md-6 mb-3">
-                            <label>Price:</label>
-                            <input
-                                type="number"
-                                className="form-control bg-transparent text-white border-white"
-                                value={price}
-                                onChange={(e) => setPrice(e.target.value)}
-                                required
-                            />
-                        </div>
+                <div className="form-group">
+                  <label>Price (₹)</label>
+                  <input
+                    type="number"
+                    className="custom-input"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                    placeholder="Set your price"
+                    required
+                  />
+                </div>
 
-                        <div className="col-md-6 mb-3">
-                            <label>Platform:</label>
-                            <select
-                                className="form-control bg-transparent text-white border-white"
-                                value={platform}
-                                onChange={(e) => setPlatform(e.target.value)}
-                                required>
-                                <option className="text-dark bg-light" value="">Select Platform</option>
-                                <option className="text-dark bg-light" value="PC">PC</option>
-                                <option className="text-dark bg-light" value="PlayStation">PlayStation</option>
-                                <option className="text-dark bg-light" value="Xbox">Xbox</option>
-                                <option className="text-dark bg-light" value="Nintendo">Nintendo</option>
-                                <option className="text-dark bg-light" value="Mobile">Mobile</option>
-                            </select>
+                <div className="form-group">
+                  <label>Platform</label>
+                  <select
+                    className="custom-input"
+                    value={platform}
+                    onChange={(e) => setPlatform(e.target.value)}
+                    required
+                  >
+                    <option value="">Select Platform</option>
+                    <option value="PC">PC</option>
+                    <option value="PlayStation">PlayStation</option>
+                    <option value="Xbox">Xbox</option>
+                    <option value="Mobile">Mobile</option>
+                  </select>
+                </div>
 
-                        </div>
+                <div className="form-group">
+                  <label>Game Mode</label>
+                  <select
+                    className="custom-input"
+                    value={gameMode}
+                    onChange={(e) => setGameMode(e.target.value)}
+                    required
+                  >
+                    <option value="">Select Mode</option>
+                    <option value="Single Player">Single Player</option>
+                    <option value="Multiplayer">Multiplayer</option>
+                    <option value="Co-op">Co-op</option>
+                    <option value="Battle Royale">Battle Royale</option>
+                  </select>
+                </div>
+              </div>
 
-                        <div className="col-md-6 mb-3">
-                            <label>Game Mode:</label>
-                            <select
-                                className="form-control bg-transparent text-white border-white"
-                                value={gameMode}
-                                onChange={(e) => setGameMode(e.target.value)}
-                                required>
-                                <option className="text-dark bg-light" value="">Select Game Mode</option>
-                                <option className="text-dark bg-light" value="Single Player">Single Player</option>
-                                <option className="text-dark bg-light" value="Multiplayer">Multiplayer</option>
-                                <option className="text-dark bg-light" value="Co-op">Co-op</option>
-                                <option className="text-dark bg-light" value="Battle Royale">Battle Royale</option>
-                            </select>
-
-                        </div>
-
-                        <div className="col-md-12 mb-3">
-                            <label>Description:</label>
-                            <input
-                                style={{height: '150px'}}
-                                type="text"
-                                className="form-control bg-transparent text-white border-white"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-                            <label>Cover Photo:</label>
-                            <input
-                                type="file"
-                                className="form-control bg-transparent text-white border-white"
-                                onChange={handleCoverPhotoChange}
-                                accept="image/*"
-                            />
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-                            <label>Screenshots (up to 5):</label>
-                            <input
-                                type="file"
-                                multiple
-                                className="form-control bg-transparent text-white border-white"
-                                onChange={handleScreenshotChange}
-                                accept="image/*"
-                            />
-                        </div>
-                        
-                        <div className="col-md-6 mb-3">
-                        <label>Account Username:</label>
-                        <input
-                            type="text"
-                            className="form-control bg-transparent text-white border-white"
-                            value={gameUsername}
-                            onChange={(e) => setGameUsername(e.target.value)}
-                            required
-                        />
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-                            <label>Account Password:</label>
-                            <input
-                                type="text"
-                                className="form-control bg-transparent text-white border-white"
-                                value={gamePassword}
-                                onChange={(e) => setGamePassword(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <div className="col-md-12 mb-3">
-                            <label>Keywords:</label>
-                            {keywords.map((keyword, index) => (
-                                <div key={index} className="d-flex mb-2">
-                                    <input
-                                        type="text"
-                                        className="form-control bg-transparent text-white border-white"
-                                        value={keyword}
-                                        onChange={(e) => handleKeywordChange(index, e.target.value)}
-                                        required
-                                    />
-                                    {index > 0 && (
-                                        <button
-                                            type="button"
-                                            className="btn btn-danger ms-2"
-                                            onClick={() => removeKeyword(index)}
-                                        >
-                                            Remove
-                                        </button>
-                                    )}
-                                </div>
-                            ))}
-                            <button
-                                style={{backgroundColor: 'none', border: '1px solid #9742FF', color: '#9742FF '}}
-                                type="button"
-                                className="btn btn-outline-light btn-sm mt-2"
-                                onClick={addMoreKeyword}
-                            >
-                                Add More
-                            </button>
-                        </div>
-
-                    </div>
-                    {error && <p className="text-danger">{error}</p>}
-                    <div className="text-center mt-4">
-                        <button type="submit" className="btn  px-4" style={{
-                    width: '50%',
-                    padding: '10px',
-                    backgroundColor: '#7301FF',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                    font: '16px',
-                }}>
-                            Add Game Account
-                        </button>
-                    </div>
-                </form>
+              <div className="form-group full-width">
+                <label>Description</label>
+                <textarea
+                  className="custom-input textarea"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Describe the account's rank, skins, and achievements..."
+                  required
+                />
+              </div>
             </div>
+
+            {/* Credentials Section */}
+            <div className="form-section">
+              <h3><i className="bi bi-shield-lock"></i> Account Credentials</h3>
+              <div className="form-grid">
+                <div className="form-group">
+                  <label>Login Username</label>
+                  <input
+                    type="text"
+                    className="custom-input"
+                    value={gameUsername}
+                    onChange={(e) => setGameUsername(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Login Password</label>
+                  <input
+                    type="password"
+                    className="custom-input"
+                    value={gamePassword}
+                    onChange={(e) => setGamePassword(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Media Section */}
+            <div className="form-section">
+              <h3><i className="bi bi-image"></i> Visuals & Media</h3>
+              <div className="form-grid">
+                <div className="form-group">
+                  <label>Cover Banner</label>
+                  <div className="file-input-wrapper">
+                    <input type="file" onChange={handleCoverPhotoChange} accept="image/*" />
+                    <span><i className="bi bi-cloud-arrow-up"></i> Upload Cover</span>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label>Gallery (up to 5)</label>
+                  <div className="file-input-wrapper">
+                    <input type="file" multiple onChange={handleScreenshotChange} accept="image/*" />
+                    <span><i className="bi bi-images"></i> Add Screenshots</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Keywords Section */}
+            <div className="form-section">
+              <h3><i className="bi bi-tags"></i> Tags & Keywords</h3>
+              <div className="keyword-list">
+                {keywords.map((keyword, index) => (
+                  <div key={index} className="keyword-input-row">
+                    <input
+                      type="text"
+                      className="custom-input sm"
+                      value={keyword}
+                      onChange={(e) => handleKeywordChange(index, e.target.value)}
+                      placeholder="e.g. Immortal, Rare Skins"
+                      required
+                    />
+                    {index > 0 && (
+                      <button type="button" className="remove-btn" onClick={() => removeKeyword(index)}>
+                        <i className="bi bi-x"></i>
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button type="button" className="add-more-btn" onClick={addMoreKeyword}>
+                  <i className="bi bi-plus-lg"></i> Add Tag
+                </button>
+              </div>
+            </div>
+
+            {error && <div className="error-message">{error}</div>}
+
+            <div className="form-footer">
+              <button type="submit" className="submit-btn">
+                Publish Account Listing
+              </button>
+            </div>
+          </form>
         </div>
-        </div>
+      </div>
+    </div>
     );
 };
 

@@ -30,47 +30,77 @@ const SellerProfile = () => {
   if (!profileData) return <p>Loading profile...</p>;
 
   return (
-    <div className="semi">
+    <div className="seller-dashboard">
       <SellerSide />
-      <div className="profile-wrapper mt-5">
-        <div className="profile-section">
-          <h5>Profile Picture</h5>
-          <p>Upload a picture to make your profile stand out</p>
-          <div className="profile-pic-container">
-            <label htmlFor="profileUpload">
-              <div className="profile-pic">
-                <img
-                  src={
-                    previewPhoto ||
-                    (profileData.profilePhoto
-                      ? `http://localhost:8000/uploads/profilePhotos/${profileData.profilePhoto}`
-                      : "/default-profile.png")
-                  }
-                  alt="Profile"
-                  className="profile-img"
-                />
-                <div className="camera-icon">📷</div>
-              </div>
-            </label>
-            <input
-              type="file"
-              id="profileUpload"
-              accept="image/*"
-              onChange={handlePhotoChange}
-              style={{ display: 'none' }}
-            />
-          </div>
+      <div className="main-content">
+        <div className="profile-header-main">
+          <h2>Seller <span>Profile</span></h2>
+          <p>Update your public seller information and avatar.</p>
         </div>
 
-        <div className="account-info-section">
-          <h5>Account Info</h5>
-          <div className="info-grid">
-            <div><input type="text" value={profileData.username} readOnly /></div>
-            <div><input type="text" value={profileData.address.street} readOnly /></div>
-            <div><input type="text" value={profileData.address.city} readOnly /></div>
-            <div><input type="text" value={profileData.address.state} readOnly /></div>
-            <div><input type="text" value={profileData.address.zipCode} readOnly /></div>
-            <div><input type="text" value={profileData.address.country} readOnly /></div>
+        <div className="profile-grid">
+          {/* Avatar Section */}
+          <div className="profile-card avatar-card">
+            <div className="avatar-wrapper">
+              <img
+                src={
+                  previewPhoto ||
+                  (profileData.profilePhoto
+                    ? `http://localhost:8000/uploads/profilePhotos/${profileData.profilePhoto}`
+                    : "/default-profile.png")
+                }
+                alt="Profile"
+                className="main-avatar"
+              />
+              <label htmlFor="profileUpload" className="avatar-edit-btn">
+                <i className="bi bi-camera"></i>
+              </label>
+              <input
+                type="file"
+                id="profileUpload"
+                accept="image/*"
+                onChange={handlePhotoChange}
+                style={{ display: 'none' }}
+              />
+            </div>
+            <div className="avatar-info">
+              <h3>{profileData.username}</h3>
+              <p>{profileData.email}</p>
+              <span className="role-badge">Verified Seller</span>
+            </div>
+          </div>
+
+          {/* Details Section */}
+          <div className="profile-card details-card">
+            <div className="details-header">
+              <h3><i className="bi bi-person-lines-fill"></i> Account Details</h3>
+            </div>
+            <div className="details-grid">
+              <div className="detail-item">
+                <label>Username</label>
+                <div className="detail-value">{profileData.username}</div>
+              </div>
+              <div className="detail-item">
+                <label>Email Address</label>
+                <div className="detail-value">{profileData.email}</div>
+              </div>
+              <div className="detail-item">
+                <label>Phone Number</label>
+                <div className="detail-value">{profileData.phone || 'Not provided'}</div>
+              </div>
+              <div className="detail-item">
+                <label>Street Address</label>
+                <div className="detail-value">{profileData.address?.street || 'N/A'}</div>
+              </div>
+              <div className="detail-item">
+                <label>City</label>
+                <div className="detail-value">{profileData.address?.city || 'N/A'}</div>
+              </div>
+              <div className="detail-item">
+                <label>Country</label>
+                <div className="detail-value">{profileData.address?.country || 'N/A'}</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

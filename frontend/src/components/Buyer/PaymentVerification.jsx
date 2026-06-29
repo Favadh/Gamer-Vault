@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { FaCheck, FaTimes, FaEnvelope, FaShoppingBag, FaArrowLeft } from 'react-icons/fa';
 import.meta.env;
+import './styles/GameAccountDetail.css'
 
 const PaymentVerification = () => {
   const location = useLocation();
@@ -78,18 +80,47 @@ const PaymentVerification = () => {
     } 
   }, [location.search]);
 
-  if (status === "pending") return <div>Processing payment...</div>;
+  if (status === "pending") return (
+    <div className="success-page">
+      <div className="loading-container">
+        <div className="spinner-glow"></div>
+        <div className="spinner-main"></div>
+        <p className="loading-text">Securing Your Transaction...</p>
+        <p className="loading-subtext">Connecting to the vault, please do not close this window.</p>
+      </div>
+    </div>
+  );
+
+  const isSuccess = status === "✅ Payment Successful!";
 
   return (
     <div className="success-page">
-      <h2>{status}</h2>
-      <div className="info-box">
-        <p className="secure-text">{message}</p>
+      <div className="success-card">
+        <div className={`success-icon-wrapper ${!isSuccess ? 'failed' : ''}`}>
+          {isSuccess ? <FaCheck /> : <FaTimes />}
+        </div>
+        
+        <h2>{isSuccess ? 'Transaction Vault Secured' : 'Transaction Interrupted'}</h2>
+        
+        <p className="success-message">
+          {message}
+        </p>
+
+        <div className="success-actions">
+          {isSuccess && (
+            <button className="action-btn-secondary" onClick={() => handleSendEmail(bookingId)}>
+              <FaEnvelope style={{ marginRight: '10px' }} /> Send Email Again
+            </button>
+          )}
+          <button className="action-btn-primary" onClick={() => navigate(navPath)}>
+            {isSuccess ? (
+              <><FaShoppingBag style={{ marginRight: '10px' }} /> Continue Shopping</>
+            ) : (
+              <><FaArrowLeft style={{ marginRight: '10px' }} /> Back to Cart</>
+            )}
+          </button>
+        </div>
       </div>
-      {status === "✅ Payment Successful!" && (
-        <button onClick={() => handleSendEmail(bookingId)}>Send email again</button>
-      )}
-      <button onClick={() => navigate(navPath)}>{btnText}</button>
     </div>
   );
 };

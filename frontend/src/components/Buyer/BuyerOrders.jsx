@@ -26,46 +26,48 @@ const BuyerOrders = () => {
   }, [userId]);
 
   return (
-    <div style={{ minHeight: '100vh', color: 'white' }}>
+    <div className="profile-dashboard">
       <BuyerProdNav />
-      <div className="container py-4">
-        <h2 className="mb-4">Recent Transactions</h2>
+      <div className="store-container">
+        <div className="profile-header-main">
+          <h2>Order <span>History</span></h2>
+          <p>Track your recent purchases and transaction status.</p>
+        </div>
+
         {loading ? (
-          <p>Loading...</p>
+          <div className="loading-box">
+            <div className="spinner"></div>
+            <p>Loading transactions...</p>
+          </div>
         ) : transactions.length === 0 ? (
-          <p>No transactions found.</p>
+          <div className="no-results-box">
+            <i className="bi bi-clock-history" style={{ fontSize: '3rem' }}></i>
+            <p>No transactions found in your history.</p>
+          </div>
         ) : (
-          <div className="table-responsive">
-            <table className="table table-dark table-hover rounded">
+          <div className="glass-table-container">
+            <table className="modern-table">
               <thead>
                 <tr>
                   <th>Transaction ID</th>
                   <th>Amount</th>
-                  <th>Payment Mode</th>
+                  <th>Method</th>
                   <th>Status</th>
-                  <th>Paid At</th>
+                  <th>Date</th>
                 </tr>
               </thead>
               <tbody>
                 {transactions.map((txn) => (
                   <tr key={txn._id}>
-                    <td>{txn.transactionId}</td>
-                    <td>₹{txn.amount}</td>
+                    <td><code>{txn.transactionId}</code></td>
+                    <td className="price-cell">₹{txn.amount}</td>
                     <td>{txn.paymentMode.toUpperCase()}</td>
                     <td>
-                      <span
-                        className={`badge ${
-                          txn.paymentStatus === 'success'
-                            ? 'bg-success'
-                            : txn.paymentStatus === 'failed'
-                            ? 'bg-danger'
-                            : 'bg-warning text-dark'
-                        }`}
-                      >
-                        {txn.paymentStatus.toUpperCase()}
+                      <span className={`badge-payment ${txn.paymentStatus === 'success' ? 'success' : 'pending'}`}>
+                        {txn.paymentStatus}
                       </span>
                     </td>
-                    <td>{new Date(txn.paidAt).toLocaleString()}</td>
+                    <td>{new Date(txn.paidAt).toLocaleDateString()}</td>
                   </tr>
                 ))}
               </tbody>

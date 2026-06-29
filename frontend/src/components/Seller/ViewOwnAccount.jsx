@@ -46,49 +46,62 @@ const ViewOwnAccount = () => {
     }
 
     return (
-        <div style={{ display: 'flex' }}>
-            <SellerSide />
-
-            <div style={{ flex: 1, padding: '20px', color: 'white', position: 'relative' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h2 style={{color: 'white'}}>Added Products</h2>
-                    <button 
-                        onClick={handleAddAccount} 
-                        style={{
-                            backgroundColor: '#7301FF',
-                            color: 'white',
-                            border: 'none',
-                            padding: '10px 16px',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            fontWeight: 'bold',
-                            fontSize: '14px',
-                        }}
-                    >
-                        Add Product
-                    </button>
-                </div>
-
-                {gameAccounts.length > 0 ? (
-                    gameAccounts.map((account) => (
-                        <div key={account._id} className="game-account-card" onClick={() => handleViewDetails(account._id)}>
-                            <img 
-                                src={`http://localhost:8000/uploads/coverPhotos/${account.coverPhoto}`} 
-                                alt={account.username} 
-                                className="cover-image" 
-                            />
-                            <div className="account-details">
-                                <h3 className="account-username">{account.gameName}</h3>
-                                <p className="account-price">${account.price}</p>
-                                <p className="account-description">{account.description}</p>
-                            </div>
-                        </div>
-                    ))
-                ) : (
-                    <p>No game accounts found.</p>
-                )}
-            </div>
+    <div className="seller-dashboard">
+      <SellerSide />
+      <div className="main-content">
+        <div className="top-bar">
+          <div className="title-group">
+            <h2 className="featured-title">MY <span>LISTINGS</span></h2>
+            <p className="results-count">{gameAccounts.length} active products</p>
+          </div>
+          <button className="submit-btn" style={{ width: 'auto', padding: '0.8rem 2rem' }} onClick={handleAddAccount}>
+            <i className="bi bi-plus-lg"></i> Create New Listing
+          </button>
         </div>
+
+        {error ? (
+          <div className="error-box">{error}</div>
+        ) : (
+          <div className="game-grid">
+            {gameAccounts.length > 0 ? (
+              gameAccounts.map((account) => (
+                <div key={account._id} className="modern-card" onClick={() => handleViewDetails(account._id)}>
+                  <div className="card-image-wrapper">
+                    <img
+                      src={`http://localhost:8000/uploads/coverPhotos/${account.coverPhoto}`}
+                      alt={account.gameName}
+                      className="card-image"
+                    />
+                    <div className="platform-tag">{account.platform || 'PC'}</div>
+                    <div className="price-tag">₹{account.price}</div>
+                  </div>
+                  
+                  <div className="card-body">
+                    <h3 className="card-title">{account.gameName}</h3>
+                    <div className="card-meta">
+                      <span className="mode-badge">{account.gameMode || 'Multiplayer'}</span>
+                    </div>
+                    
+                    <div className="card-footer">
+                      <div className="status-indicator">
+                        <span className="status-dot online"></span>
+                        <span className="status-text">Active</span>
+                      </div>
+                      <button className="view-btn">Edit Details</button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="no-results-box" style={{ gridColumn: '1 / -1' }}>
+                <p>You haven't added any products yet.</p>
+                <button onClick={handleAddAccount} className="clear-filters">Start Selling Now</button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
     );
 };
 

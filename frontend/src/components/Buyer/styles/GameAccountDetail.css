@@ -1,374 +1,496 @@
-/* .game-account-detail {
-    max-width: 600px;
-    margin: 20px auto;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+.detail-page-wrapper {
+  background: var(--bg-dark);
+  min-height: 100vh;
+  color: white;
+}
+
+.detail-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 2rem 4rem;
+}
+
+.detail-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* Gallery Section */
+.gallery-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.main-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--card-shadow);
+}
+
+.main-display {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.platform-overlay {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: rgba(115, 1, 255, 0.6);
+  backdrop-filter: blur(8px);
+  padding: 0.5rem 1.2rem;
+  border-radius: 10px;
+  font-family: 'Aquire', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.thumbnail-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scrollbar-width: none;
+}
+
+.thumbnail-track::-webkit-scrollbar {
+  display: none;
+}
+
+.thumb-wrapper {
+  width: 120px;
+  aspect-ratio: 16/9;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  background: var(--glass-bg);
+}
+
+.thumb-wrapper:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+.thumb-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Info Section */
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.game-title-main {
+  font-family: 'Aquire', sans-serif;
+  font-size: 3.5rem;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.badge-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.mode-tag, .status-tag {
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.mode-tag {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+}
+
+.status-tag.active {
+  background: rgba(0, 255, 136, 0.1);
+  color: #00ff88;
+}
+
+.description-box h3 {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.description-box p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  background: var(--glass-bg);
+  padding: 1.5rem;
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.spec-item .label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.spec-item .value {
+  font-weight: 600;
+  color: white;
+}
+
+.seller-box {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  padding: 1.5rem;
+  border-radius: 24px;
+  border: 1px solid var(--glass-border);
+}
+
+.seller-info-main {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.seller-avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-color);
+}
+
+.seller-details h4 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.seller-details p {
+  font-size: 0.85rem;
+  color: #00ff88;
+  margin: 0;
+}
+
+.contact-btn {
+  margin-left: auto;
+  background: transparent;
+  color: white;
+  border: 1px solid var(--glass-border);
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.contact-btn:hover {
+  background: var(--glass-bg);
+  border-color: white;
+}
+
+/* Action Bar */
+.action-bar-sticky {
+  background: rgba(15, 1, 38, 0.8);
+  backdrop-filter: blur(20px);
+  padding: 1.5rem 2rem;
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(115, 1, 255, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.price-display {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-display .label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.price-display .amount {
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+}
+
+.btn-group-main {
+  display: flex;
+  gap: 1rem;
+}
+
+.add-cart-btn, .buy-now-btn {
+  padding: 1rem 2rem;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.add-cart-btn {
+  background: transparent;
+  color: white;
+  border: 1px solid var(--primary-color);
+}
+
+.add-cart-btn:hover {
+  background: rgba(115, 1, 255, 0.1);
+}
+
+.buy-now-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  box-shadow: 0 10px 20px rgba(115, 1, 255, 0.3);
+}
+
+.buy-now-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(115, 1, 255, 0.4);
+}
+
+.success-banner {
+  background: rgba(0, 255, 136, 0.1);
+  color: #00ff88;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.error-banner {
+  background: rgba(255, 77, 77, 0.1);
+  color: #ff4d4d;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .detail-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .game-title-main {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .specs-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-bar-sticky {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  
+  .price-display {
     text-align: center;
-    transition: transform 0.3s;
-    overflow: hidden;
+  }
+  
+  .btn-group-main {
+    flex-direction: column;
+  }
 }
 
-.game-account-detail:hover {
-    transform: scale(1.02);
+/* Payment Verification & Success Page */
+.success-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  text-align: center;
+  background: radial-gradient(circle at center, #1a0140 0%, #0f0126 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-.account-username {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 10px 0;
+.success-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4rem 3rem;
+  border-radius: 40px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+  animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10;
 }
 
-.profile-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.account-description {
-    font-size: 16px;
-    color: #555;
-    margin: 10px 0;
+.success-icon-wrapper {
+  width: 90px;
+  height: 90px;
+  background: rgba(0, 255, 136, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2.5rem;
+  color: #00ff88;
+  font-size: 2.5rem;
+  box-shadow: 0 0 40px rgba(0, 255, 136, 0.15);
+  border: 1px solid rgba(0, 255, 136, 0.2);
 }
 
-.account-price {
-    font-size: 18px;
-    color: #007bff;
-    font-weight: bold;
-    margin: 10px 0;
+.success-icon-wrapper.failed {
+  background: rgba(255, 77, 77, 0.1);
+  color: #ff4d4d;
+  box-shadow: 0 0 40px rgba(255, 77, 77, 0.15);
+  border-color: rgba(255, 77, 77, 0.2);
 }
 
-.screenshots {
-    margin-top: 20px;
-    overflow-x: auto; 
-    white-space: nowrap;
-    padding: 10px 0; 
-    scroll-behavior: smooth;
+.success-card h2 {
+  font-family: 'Aquire', sans-serif;
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+  background: linear-gradient(90deg, #fff, var(--primary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.screenshot-image {
-    width: 100%; 
-    max-width: 150px; 
-    height: auto;
-    border-radius: 8px;
-    margin: 0 5px; 
-    object-fit: cover; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
+.success-card .success-message {
+  color: #ffffff !important;
+  line-height: 1.8;
+  font-size: 1.15rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
 }
 
-.screenshot-image:hover {
-    transform: scale(1.05);
+.success-actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.screenshots::-webkit-scrollbar {
-    display: none; 
+.action-btn-primary {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 1.1rem 2.5rem;
+  border-radius: 18px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(115, 1, 255, 0.3);
 }
-.update-link {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    text-align: center;
+
+.action-btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border: 1px solid var(--glass-border);
+  padding: 1.1rem 2rem;
+  border-radius: 18px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.update-link:hover {
-    background-color: #0056b3;
-} */
+.action-btn-primary:hover {
+  transform: translateY(-4px);
+  background: var(--primary-hover);
+  box-shadow: 0 15px 35px rgba(115, 1, 255, 0.4);
+}
 
+.action-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+  transform: translateY(-2px);
+}
 
-    /* .game-detail-container {
-        display: flex;
-        justify-content: center;
-        padding: 40px;
-        min-height: 100vh;
-    }
+/* Loading States */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
 
-    .game-detail-card {
-        display: flex;
-        gap: 40px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        padding: 30px;
-        width: 90%;
-        max-width: 1200px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
+.spinner-main {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(115, 1, 255, 0.1);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+}
 
-    .left-column {
-        flex: 1;
-        text-align: center;
-    }
+.spinner-glow {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: var(--primary-color);
+  filter: blur(60px);
+  opacity: 0.3;
+  animation: pulse 2s infinite ease-in-out;
+}
 
-    .right-column {
-        flex: 2;
-    }
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
-    .main-profile-img {
-        width: 180px;
-        height: 180px;
-        object-fit: cover;
-        border-radius: 12px;
-        margin-bottom: 20px;
-    }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.2; }
+  50% { transform: scale(1.5); opacity: 0.4; }
+}
 
-    .username {
-        font-size: 24px;
-        margin-bottom: 5px;
-    }
+.loading-text {
+  font-family: 'Aquire', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: white;
+}
 
-    .game-name {
-        font-weight: bold;
-        color: #666;
-        margin-bottom: 10px;
-    }
-
-    .price {
-        font-size: 20px;
-        color: #27ae60;
-        margin-bottom: 20px;
-    }
-
-    .button-group {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin-bottom: 20px;
-    }
-
-    .btn {
-        padding: 10px 20px;
-        font-weight: bold;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .btn.back {
-        background-color: #6c757d;
-        color: white;
-    }
-
-    .btn.add {
-        background-color: transparent;
-        border: 1px solid purple;
-        color: purple;
-    }
-
-    .btn:hover {
-        opacity: 0.9;
-    }
-
-    .description {
-        font-size: 16px;
-        line-height: 1.6;
-        margin-bottom: 30px;
-    }
-
-    .screenshot-scroll {
-        display: flex;
-        overflow-x: auto;
-        gap: 15px;
-        padding-bottom: 10px;
-    }
-
-    .screenshot-img {
-        width: 250px;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 8px;
-        flex-shrink: 0;
-    }
-
-    .success-msg {
-        color: green;
-        margin-top: 10px;
-    }
-
-    .error-msg {
-        color: red;
-        margin-top: 10px;
-    } */
-
-
-
-    .game-detail-container {
-        display: flex;
-        justify-content: center;
-        padding: 40px;
-        min-height: 100vh;
-    }
-    
-    .game-detail-card {
-        display: flex;
-        flex-direction: row;
-        gap: 40px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        padding: 30px;
-        width: 90%;
-        max-width: 1200px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-    }
-    
-    .left-column {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-    
-    .right-column {
-        flex: 2;
-        text-align: left;
-    }
-    
-    .main-profile-img {
-        width: 800px;
-        object-fit: cover;
-        border-radius: 12px;
-    }
-    
-    .cover-img {
-        width: 100%;
-        object-fit: cover;
-        border-radius: 12px;
-        margin-bottom: 10px;
-    }
-    
-    .screenshot-scroll {
-        display: flex;
-        overflow-x: auto;
-        gap: 15px;
-        padding: 10px 0;
-    }
-    
-    .screenshot-img {
-        width: 180px;
-        height: 120px;
-        object-fit: cover;
-        border-radius: 8px;
-        flex-shrink: 0;
-    }
-    
-    .game-name {
-        font-size: 28px;
-        font-weight: 500;
-        color: #ffffff;
-        margin-bottom: 40px;
-    }
-    
-    .price {
-        font-size: 22px;
-        color: #27ae60;
-        margin-bottom: 15px;
-        padding-left: 15px;
-        padding-right: 15px;
-        display: inline-block;
-    }
-
-    .gameMode{
-        display: inline-block;
-        margin-right: 125px;
-    }
-    
-    .description {
-        font-size: 13px;
-        line-height: 1.3;
-        margin-bottom: 20px;
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-
-    .realdes{
-        margin-bottom: 30px;
-    }
-    
-    .user-card {
-        width: 100%;
-        background: #7301ff1b;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        backdrop-filter: blur(10px);
-        margin-top: 10px;
-    }
-
-    .user-card h4{
-        color: white;
-        border-bottom: 2px solid #7301FF;
-        width: 60%;
-    }
-    
-    
-    .user-card p {
-        margin: 5px 0;
-    }
-    
-    .button-group {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-    }
-    
-    .btn {
-        padding: 10px 20px;
-        font-weight: bold;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    .buy {
-        color: white;
-        background-color: transparent;
-        border: 1px solid #7301FF;
-    }
-    
-    .add {
-        background-color: #7301FF;
-        border: none;
-        color: white;
-    }
-    
-    .btn:hover {
-        opacity: 0.9;
-    }
-    
-    .success-msg {
-        color: green;
-        margin-top: 10px;
-    }
-    
-    .error-msg {
-        color: red;
-        margin-top: 10px;
-    }
-    .user-card-image {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: rgba(255, 255, 255, 0.1);
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(5px);
-    }
-    
-    .seller-image {
-        max-width: 100%;
-        border-radius: 10px;
-        object-fit: contain;
-    }
-    
+.loading-subtext {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}

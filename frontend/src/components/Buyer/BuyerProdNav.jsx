@@ -81,62 +81,52 @@ const BuyerProdNav = () => {
 
   return (
     <>
-      <nav className="ssk navbar-expand-lg" style={{ backgroundColor: '#0e0b29', padding: '20px', width: '100%', top: '0' }}>
+      <nav className="ssk navbar navbar-expand-lg">
         <div className="container-fluid d-flex align-items-center justify-content-between">
-          <Link to='/game' className="navbar-brand text-white d-flex align-items-center">
-            <img src="/logo.png" alt="Logo" style={{ height: '40px', marginRight: '10px' }} />
+          <Link to='/game' className="navbar-brand text-white">
+            <img src="/logo.png" alt="Logo" className="nav-logo-img" />
             <span>GAMER VAULT</span>
           </Link>
 
-          <div className="d-flex align-items-center gap-5">
+          <div className="nav-links-center d-flex align-items-center gap-5">
             <Link to='/game' className="nav-link text-white">Store</Link>
             <Link to='/history' className="nav-link text-white">Orders</Link>
             <Link to='/review' className="nav-link text-white">Review</Link>
             <Link to='#contact' className="nav-link text-white">Contact</Link>
           </div>
 
-          <div className="d-flex align-items-center gap-3">
-
-            <button onClick={handleSellerSwitch} className="btn btn-outline-primary switch">
+          <div className="nav-actions d-flex align-items-center gap-4">
+            <button onClick={handleSellerSwitch} className="switch">
               Switch to Seller
             </button>
 
-            {/* Cart Icon */}
-            <div className="cart-icon-container" onClick={handleCart} style={{ position: 'relative', cursor: 'pointer', marginLeft: '20px',
-              marginRight: '20px'
-            }}>
-              <FaShoppingCart color='#7301FF' size={24} />
+            <div className="cart-wrapper" onClick={handleCart}>
+              <FaShoppingCart className="cart-icon" />
               {cartItemCount > 0 && (
                 <span className="cart-badge">{cartItemCount}</span>
               )}
             </div>
 
-            {/* Profile Dropdown */}
-            <div ref={dropdownRef} className="position-relative">
+            <div ref={dropdownRef} className="profile-dropdown-wrapper">
               <img
                 src={userProfile ? `http://localhost:8000/uploads/profilePhotos/${userProfile.profilePhoto}` : "/profile.png"}
                 alt="Profile"
-                className="rounded-circle"
-                style={{ width: '35px', height: '35px', objectFit: 'cover', cursor: 'pointer' }}
+                className="profile-img-nav rounded-circle"
                 onClick={() => setShowDropdown(!showDropdown)}
               />
+              
               {showDropdown && (
-                <div className="dropdown-menu show" style={{
-                  position: 'absolute',
-                  top: '45px',
-                  right: '0',
-                  cursor: 'pointer',
-                  backgroundColor: '#1c1c2c',
-                  borderRadius: '8px',
-                  padding: '10px',
-                  minWidth: '150px',
-                  zIndex: 9999
-                }}>
-                  <div className="dropdown-item text-white" onClick={() => { navigate('/updateprofilebuy'); setShowDropdown(false); }}>
-                    Profile
+                <div className="modern-dropdown">
+                  <div className="dropdown-user-info">
+                    <p className="user-name-small">{userProfile?.username || 'Gamer'}</p>
+                    <p className="user-email-small">{userProfile?.email}</p>
                   </div>
-                  <div className="dropdown-item text-danger" onClick={() => { setShowConfirmLogout(true); setShowDropdown(false); }}>
-                    Logout
+                  <div className="dropdown-divider"></div>
+                  <div className="dropdown-link" onClick={() => { navigate('/updateprofilebuy'); setShowDropdown(false); }}>
+                    <i className="bi bi-person"></i> Profile
+                  </div>
+                  <div className="dropdown-link text-danger" onClick={() => { setShowConfirmLogout(true); setShowDropdown(false); }}>
+                    <i className="bi bi-box-arrow-right"></i> Logout
                   </div>
                 </div>
               )}
@@ -146,12 +136,13 @@ const BuyerProdNav = () => {
       </nav>
 
       {showConfirmLogout && (
-        <div className="modal-backdrop">
-          <div className="hi">
-            <h5>Are you sure you want to logout?</h5>
-            <div className="d-flex justify-content-end mt-3 gap-3">
-              <button className="btn btn-secondary" onClick={() => setShowConfirmLogout(false)}>No</button>
-              <button className="btn btn-danger" onClick={handleLogout}>Yes</button>
+        <div className="logout-modal">
+          <div className="logout-box">
+            <h3>Log Out</h3>
+            <p>Are you sure you want to exit the vault?</p>
+            <div className="logout-buttons">
+              <button className="no-btn" onClick={() => setShowConfirmLogout(false)}>Cancel</button>
+              <button className="yes-btn" onClick={handleLogout}>Confirm</button>
             </div>
           </div>
         </div>

@@ -208,50 +208,52 @@ const SellerHome = () => {
   }
 
   return (
-    <div className="seller-dashboard" style={{ color: 'white' }}>
-      {/* Sidebar */}
+    <div className="seller-dashboard">
       <SellerSide />
-      {/* Main Content */}
       <div className="main-content">
         <div className="top-bar">
-          <h2 style={{color:'white'}}>Dashboard</h2>
-          <div className="profile">
-          {userData && userData.profilePhoto ? (
-          <img className='profilepic'
-            onClick={handleProfile}
-            src={`http://localhost:8000/uploads/profilePhotos/${userData.profilePhoto}`}
-            alt="profile"
-          />
-) : (
-  <div className="profile-placeholder">Loading...</div> // Or show a placeholder image
-)}          <div>
-              {userData ? userData.username : 'Loading...'}
+          <h2>Dashboard</h2>
+          <div className="profile" onClick={handleProfile}>
+            <div className="profile-info">
+              <span className="username">{userData ? userData.username : 'Seller'}</span>
             </div>
+            {userData && userData.profilePhoto ? (
+              <img className='profilepic'
+                src={`http://localhost:8000/uploads/profilePhotos/${userData.profilePhoto}`}
+                alt="profile"
+              />
+            ) : (
+              <div className="profile-placeholder"><i className="bi bi-person"></i></div>
+            )}
           </div>
         </div>
 
         {/* Stat Cards */}
         <div className="stats">
           <div className="stat-card">
-            <h4 contentEditable="false">Profit</h4>
-            <p>10.25%</p>
+            <h4>Total Profit</h4>
+            <p>₹12,450</p>
+            <span className="stat-trend positive">+10.25%</span>
           </div>
           <div className="stat-card">
-            <h4>Sold</h4>
-            <p>2</p>
+            <h4>Accounts Sold</h4>
+            <p>24</p>
+            <span className="stat-trend positive">+2 this week</span>
           </div>
           <div className="stat-card">
-            <h4>Sales</h4>
+            <h4>Active Listings</h4>
             <p>11</p>
+            <span className="stat-trend">Manage Items</span>
           </div>
         </div>
 
-        {/* Bar Chart */}
+        {/* Chart Section */}
         <div className="chart">
-          <h4>Sales Info</h4>
-          <img src="/graph.png" alt="chart" style={{ width: '100%', height: '400px' }}/>
+          <h4>Sales Performance</h4>
+          <div className="chart-placeholder">
+            <img src="/graph.png" alt="chart" style={{ width: '100%', height: 'auto', borderRadius: '12px' }}/>
+          </div>
         </div>
-
       </div>
     </div>
   );

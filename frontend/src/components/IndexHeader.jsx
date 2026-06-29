@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useScreenWidth from '../utils/useScreenWidth';
@@ -95,8 +94,8 @@ export default function Navbar() {
         >
         <motion.div
           animate={{
-          height: scrolled ? '4rem' : '5.5rem',
-          width: scrolled ? '4rem' : '5.5rem',
+          height: windowWidth <= 480 ? (scrolled ? '2.5rem' : '3.5rem') : (scrolled ? '4rem' : '5.5rem'),
+          width: windowWidth <= 480 ? (scrolled ? '2.5rem' : '3.5rem') : (scrolled ? '4rem' : '5.5rem'),
           }}
           transition={{ duration: 0.3 }}
           className={Classes.logo}
@@ -110,56 +109,58 @@ export default function Navbar() {
           </a>
         </motion.div>
 
-        <ul className={scrolled ? Classes.ul : Classes.ulScrolled}>
-          <li
-          onClick={() => {
-            setActiveSection('/');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          className={activeSection === '/' ? Classes.navActive : ''}
-          >
-          <h5>Home</h5>
-          </li>
+        {windowWidth >= 700 && (
+            <ul className={scrolled ? Classes.ul : Classes.ulScrolled}>
+            <li
+            onClick={() => {
+                setActiveSection('/');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className={activeSection === '/' ? Classes.navActive : ''}
+            >
+            <h5>Home</h5>
+            </li>
 
-          <li
-          onClick={() => {
-            setActiveSection('/store');
-            const storeSection = document.getElementById("store");
-            if (storeSection) {
-            storeSection.scrollIntoView({ behavior: "smooth" });
-            }
-          }}
-          className={activeSection === '/store' ? Classes.navActive : ''}
-          >
-          <h5>Store</h5>
-          </li>
+            <li
+            onClick={() => {
+                setActiveSection('/store');
+                const storeSection = document.getElementById("store");
+                if (storeSection) {
+                storeSection.scrollIntoView({ behavior: "smooth" });
+                }
+            }}
+            className={activeSection === '/store' ? Classes.navActive : ''}
+            >
+            <h5>Store</h5>
+            </li>
 
-          <li
-          onClick={() => {
-            setActiveSection('/news');
-            const storeSection = document.getElementById("news");
-            if (storeSection) {
-            storeSection.scrollIntoView({ behavior: "smooth" });
-            }
-          }}
-          className={activeSection === '/news' ? Classes.navActive : ''}
-          >
-          <h5>News</h5>
-          </li>
+            <li
+            onClick={() => {
+                setActiveSection('/news');
+                const storeSection = document.getElementById("news");
+                if (storeSection) {
+                storeSection.scrollIntoView({ behavior: "smooth" });
+                }
+            }}
+            className={activeSection === '/news' ? Classes.navActive : ''}
+            >
+            <h5>News</h5>
+            </li>
 
-          <li
-          onClick={() => {
-            setActiveSection('/about-us');
-            const storeSection = document.getElementById("about-us");
-            if (storeSection) {
-            storeSection.scrollIntoView({ behavior: "smooth" });
-            }
-          }}
-          className={activeSection === '/about-us' ? Classes.navActive : ''}
-          >
-          <h5> {isMobile ? 'About' : 'About Us'} </h5>
-          </li>
-        </ul>
+            <li
+            onClick={() => {
+                setActiveSection('/about-us');
+                const storeSection = document.getElementById("about-us");
+                if (storeSection) {
+                storeSection.scrollIntoView({ behavior: "smooth" });
+                }
+            }}
+            className={activeSection === '/about-us' ? Classes.navActive : ''}
+            >
+            <h5> {isMobile ? 'About' : 'About Us'} </h5>
+            </li>
+            </ul>
+        )}
 
         {/* Hamburger toggler only for < 700px */}
         {windowWidth < 700 && (
@@ -178,7 +179,7 @@ export default function Navbar() {
                     className={`offcanvas offcanvas-end${showOffcanvas ? ' show' : ''}`}
                     tabIndex="-1"
                     style={{
-                    margin: getMargin('offCanvasNavbar'),
+                    margin: '0',
                     visibility: showOffcanvas ? 'visible' : 'hidden',
                     background: 'rgba(0,0,0,0.95)',
                     color: '#fff',
@@ -209,8 +210,16 @@ export default function Navbar() {
                       ></button>
                     </div>
 
-                    <div className="offcanvas-body row d-flex flex-column align-items-start gap-3">
+                    <div className="offcanvas-body d-flex flex-column align-items-start gap-4" style={{ padding: '20px 30px' }}>
 
+                    <div className={Classes.offcanvasLinks}>
+                        <h5 className={activeSection === '/' ? Classes.navActiveOffcanvas : ''} onClick={() => { setShowOffcanvas(false); setActiveSection('/'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Home</h5>
+                        <h5 className={activeSection === '/store' ? Classes.navActiveOffcanvas : ''} onClick={() => { setShowOffcanvas(false); setActiveSection('/store'); document.getElementById("store")?.scrollIntoView({ behavior: "smooth" }); }}>Store</h5>
+                        <h5 className={activeSection === '/news' ? Classes.navActiveOffcanvas : ''} onClick={() => { setShowOffcanvas(false); setActiveSection('/news'); document.getElementById("news")?.scrollIntoView({ behavior: "smooth" }); }}>News</h5>
+                        <h5 className={activeSection === '/about-us' ? Classes.navActiveOffcanvas : ''} onClick={() => { setShowOffcanvas(false); setActiveSection('/about-us'); document.getElementById("about-us")?.scrollIntoView({ behavior: "smooth" }); }}>About Us</h5>
+                    </div>
+                    
+                    <div className="w-100 d-flex flex-column gap-3">
                     <button
                       className={`col-6 ${Classes.loginBtn}`}
                       
@@ -231,6 +240,7 @@ export default function Navbar() {
                 >
                   Sign Up
                 </button>
+                    </div>
               </div>
             </div>
             {/* Overlay for offcanvas */}
@@ -238,7 +248,7 @@ export default function Navbar() {
               <div
                 className="offcanvas-backdrop fade show"
                 style={{ zIndex: 1040,
-                  margin: getMargin('offCanvasNavbar'),
+                  margin: '0',
                  }}
                 onClick={() => setShowOffcanvas(false)}
               />
